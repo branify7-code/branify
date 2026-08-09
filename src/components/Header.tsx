@@ -141,7 +141,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
           >
             Home
             {currentPath === '/' && (
-              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#F27D26] rounded-full"></span>
+              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#5A8DFF] rounded-full"></span>
             )}
           </button>
 
@@ -159,11 +159,11 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
             <span>Services</span>
             <ChevronDown
               className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                activeMegaMenu === 'services' ? 'rotate-180 text-[#F27D26]' : 'text-zinc-500'
+                activeMegaMenu === 'services' ? 'rotate-180 text-[#5A8DFF]' : 'text-zinc-500'
               }`}
             />
             {currentPath.startsWith('/services') && (
-              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#F27D26] rounded-full"></span>
+              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#5A8DFF] rounded-full"></span>
             )}
           </button>
 
@@ -181,11 +181,11 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
             <span>Digital Products</span>
             <ChevronDown
               className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                activeMegaMenu === 'products' ? 'rotate-180 text-[#F27D26]' : 'text-zinc-500'
+                activeMegaMenu === 'products' ? 'rotate-180 text-[#5A8DFF]' : 'text-zinc-500'
               }`}
             />
             {currentPath.startsWith('/digital-products') && (
-              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#F27D26] rounded-full"></span>
+              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#5A8DFF] rounded-full"></span>
             )}
           </button>
 
@@ -201,16 +201,16 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
             aria-expanded={activeMegaMenu === 'tools'}
           >
             <span>Free Tools</span>
-            <span className="px-1.5 py-0.2 text-[9px] font-black uppercase bg-[#F27D26] text-black rounded ml-0.5">
+            <span className="px-1.5 py-0.2 text-[9px] font-black uppercase bg-[#5A8DFF] text-black rounded ml-0.5">
               100+
             </span>
             <ChevronDown
               className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                activeMegaMenu === 'tools' ? 'rotate-180 text-[#F27D26]' : 'text-zinc-500'
+                activeMegaMenu === 'tools' ? 'rotate-180 text-[#5A8DFF]' : 'text-zinc-500'
               }`}
             />
             {currentPath.startsWith('/tools') && (
-              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#F27D26] rounded-full"></span>
+              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#5A8DFF] rounded-full"></span>
             )}
           </button>
 
@@ -228,11 +228,11 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
             <span>Portfolio</span>
             <ChevronDown
               className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                activeMegaMenu === 'portfolio' ? 'rotate-180 text-[#F27D26]' : 'text-zinc-500'
+                activeMegaMenu === 'portfolio' ? 'rotate-180 text-[#5A8DFF]' : 'text-zinc-500'
               }`}
             />
             {currentPath.startsWith('/portfolio') && (
-              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#F27D26] rounded-full"></span>
+              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#5A8DFF] rounded-full"></span>
             )}
           </button>
 
@@ -250,11 +250,11 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
             <span>Pricing</span>
             <ChevronDown
               className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                activeMegaMenu === 'pricing' ? 'rotate-180 text-[#F27D26]' : 'text-zinc-500'
+                activeMegaMenu === 'pricing' ? 'rotate-180 text-[#5A8DFF]' : 'text-zinc-500'
               }`}
             />
             {currentPath.startsWith('/pricing') && (
-              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#F27D26] rounded-full"></span>
+              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#5A8DFF] rounded-full"></span>
             )}
           </button>
 
@@ -272,11 +272,11 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
             <span>Blog</span>
             <ChevronDown
               className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                activeMegaMenu === 'blog' ? 'rotate-180 text-[#F27D26]' : 'text-zinc-500'
+                activeMegaMenu === 'blog' ? 'rotate-180 text-[#5A8DFF]' : 'text-zinc-500'
               }`}
             />
             {currentPath.startsWith('/blog') && (
-              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#F27D26] rounded-full"></span>
+              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#5A8DFF] rounded-full"></span>
             )}
           </button>
 
@@ -291,7 +291,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
           >
             About
             {currentPath.startsWith('/about') && (
-              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#F27D26] rounded-full"></span>
+              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#5A8DFF] rounded-full"></span>
             )}
           </button>
 
@@ -306,7 +306,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
           >
             Contact
             {currentPath.startsWith('/contact') && (
-              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#F27D26] rounded-full"></span>
+              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#5A8DFF] rounded-full"></span>
             )}
           </button>
         </nav>
@@ -333,7 +333,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
               className="flex items-center gap-1 px-2.5 py-1.5 bg-zinc-900/80 hover:bg-zinc-800 border border-white/10 rounded-xl text-xs font-bold text-zinc-200 transition-colors"
               aria-label="Select Currency"
             >
-              <Globe className="w-3.5 h-3.5 text-[#F27D26]" />
+              <Globe className="w-3.5 h-3.5 text-[#5A8DFF]" />
               <span>{currency}</span>
               <ChevronDown className="w-3 h-3 text-zinc-400" />
             </button>
@@ -348,11 +348,11 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
                       setIsCurrencyDropdownOpen(false);
                     }}
                     className={`w-full text-left px-3 py-1.5 text-xs flex items-center justify-between hover:bg-zinc-800 transition-colors ${
-                      currency === c ? 'text-[#F27D26] font-extrabold bg-zinc-800/50' : 'text-zinc-300'
+                      currency === c ? 'text-[#5A8DFF] font-extrabold bg-zinc-800/50' : 'text-zinc-300'
                     }`}
                   >
                     <span>{c}</span>
-                    {currency === c && <span className="w-1.5 h-1.5 rounded-full bg-[#F27D26]"></span>}
+                    {currency === c && <span className="w-1.5 h-1.5 rounded-full bg-[#5A8DFF]"></span>}
                   </button>
                 ))}
               </div>
@@ -368,7 +368,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
           >
             <ShoppingBag className="w-4 h-4" />
             {totalCartCount > 0 && (
-              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#F27D26] text-black font-black text-[10px] flex items-center justify-center animate-pulse">
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#5A8DFF] text-black font-black text-[10px] flex items-center justify-center animate-pulse">
                 {totalCartCount}
               </span>
             )}
@@ -379,7 +379,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
             onClick={() => handleNavClick('/admin')}
             className={`p-2 rounded-xl border transition-colors ${
               isAdminLoggedIn
-                ? 'bg-[#F27D26]/10 border-[#F27D26]/40 text-[#F27D26]'
+                ? 'bg-[#5A8DFF]/10 border-[#5A8DFF]/40 text-[#5A8DFF]'
                 : 'bg-zinc-900/80 border-white/10 text-zinc-400 hover:text-white'
             }`}
             title="Admin Dashboard"
@@ -391,7 +391,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, navigate }) => {
           {/* Start a Project CTA */}
           <button
             onClick={() => handleNavClick('/contact')}
-            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-[#F27D26] text-black hover:bg-orange-500 font-extrabold text-xs uppercase tracking-widest rounded-full transition-all shadow-lg shadow-[#F27D26]/20 hover:scale-105"
+            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 btn-gradient-primary rounded-full uppercase tracking-widest text-xs"
           >
             Start a Project
           </button>

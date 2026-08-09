@@ -73,16 +73,16 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
   };
 
   const iconMap: Record<string, React.ReactNode> = {
-    Globe: <Globe className="w-6 h-6 text-[#F27D26]" />,
+    Globe: <Globe className="w-6 h-6 text-[#5A8DFF]" />,
     LayoutGrid: <LayoutGrid className="w-6 h-6 text-white" />,
-    MousePointerClick: <MousePointerClick className="w-6 h-6 text-[#F27D26]" />,
+    MousePointerClick: <MousePointerClick className="w-6 h-6 text-[#5A8DFF]" />,
     Figma: <Figma className="w-6 h-6 text-white" />,
-    Palette: <Palette className="w-6 h-6 text-[#F27D26]" />,
-    Sparkles: <Sparkles className="w-6 h-6 text-orange-400" />,
+    Palette: <Palette className="w-6 h-6 text-[#5A8DFF]" />,
+    Sparkles: <Sparkles className="w-6 h-6 text-[#5A8DFF]" />,
     Share2: <Share2 className="w-6 h-6 text-white" />,
-    Presentation: <Presentation className="w-6 h-6 text-[#F27D26]" />,
+    Presentation: <Presentation className="w-6 h-6 text-[#5A8DFF]" />,
     Search: <Search className="w-6 h-6 text-white" />,
-    Bot: <Bot className="w-6 h-6 text-[#F27D26]" />,
+    Bot: <Bot className="w-6 h-6 text-[#5A8DFF]" />,
     TrendingUp: <TrendingUp className="w-6 h-6 text-white" />
   };
 
@@ -119,16 +119,16 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
         className="relative pt-12 lg:pt-20 overflow-hidden bg-[#0A0A0D]"
       >
         {/* Background Ambient Motion Blobs */}
-        <div className="absolute -top-16 left-1/4 w-[500px] h-[350px] bg-[#F27D26]/12 rounded-full blur-[140px] pointer-events-none animate-blob-1"></div>
-        <div className="absolute top-1/3 -left-20 w-[450px] h-[450px] bg-orange-600/10 rounded-full blur-[150px] pointer-events-none animate-blob-2"></div>
-        <div className="absolute -bottom-10 right-10 w-[550px] h-[350px] bg-amber-500/10 rounded-full blur-[160px] pointer-events-none animate-blob-3"></div>
+        <div className="absolute -top-16 left-1/4 w-[500px] h-[350px] bg-[#3B6EF6]/15 rounded-full blur-[140px] pointer-events-none animate-blob-1"></div>
+        <div className="absolute top-1/3 -left-20 w-[450px] h-[450px] bg-[#2450C7]/15 rounded-full blur-[150px] pointer-events-none animate-blob-2"></div>
+        <div className="absolute -bottom-10 right-10 w-[550px] h-[350px] bg-[#5A8DFF]/15 rounded-full blur-[160px] pointer-events-none animate-blob-3"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Hero Left Content */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/10 text-[10px] font-extrabold uppercase tracking-widest text-zinc-300 shadow-sm">
-                <Sparkles className="w-3.5 h-3.5 text-[#F27D26]" />
+                <Sparkles className="w-3.5 h-3.5 text-[#5A8DFF]" />
                 <span>International Digital Agency</span>
               </div>
 
@@ -139,15 +139,15 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                 <span className="inline-block mr-3 animate-word-tilt" style={{ animationDelay: '120ms' }}>BRAND</span>
                 <span className="inline-block animate-word-tilt" style={{ animationDelay: '180ms' }}>THAT</span>
                 <br />
-                <span className="inline-block mr-3 text-[#F27D26] animate-word-tilt" style={{ animationDelay: '240ms' }}>MEANS</span>
-                <span className="inline-block text-[#F27D26] animate-word-tilt" style={{ animationDelay: '300ms' }}>BUSINESS.</span>
+                <span className="inline-block mr-3 text-[#5A8DFF] animate-word-tilt" style={{ animationDelay: '240ms' }}>MEANS</span>
+                <span className="inline-block text-[#5A8DFF] animate-word-tilt" style={{ animationDelay: '300ms' }}>BUSINESS.</span>
               </h1>
 
               <p className="text-zinc-400 text-sm sm:text-base lg:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
                 Websites, branding, AI solutions and digital products designed to help ambitious businesses look better, work smarter and grow faster.
               </p>
 
-              {/* CTAs with 3D hover lifts & soft orange glows */}
+              {/* CTAs with 3D hover lifts & soft blue glows */}
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
                 <button
                   onClick={() => navigate('/contact')}
@@ -162,26 +162,26 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                   className="w-full sm:w-auto px-8 py-4 btn-outline-secondary rounded-full flex items-center justify-center gap-2 group cursor-pointer"
                 >
                   Explore Our Work
-                  <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-[#F27D26] group-hover:translate-x-1 transition-all duration-300" />
+                  <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-[#5A8DFF] group-hover:translate-x-1 transition-all duration-300" />
                 </button>
               </div>
 
               {/* Trust Indicators */}
               <div className="pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-bold uppercase tracking-wider text-zinc-400">
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#F27D26] shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#5A8DFF] shrink-0" />
                   <span>Fast Delivery</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#F27D26] shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#5A8DFF] shrink-0" />
                   <span>Transparent Pricing</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#F27D26] shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#5A8DFF] shrink-0" />
                   <span>Global Clients</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#F27D26] shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#5A8DFF] shrink-0" />
                   <span>No Contracts</span>
                 </div>
               </div>
@@ -207,7 +207,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                   style={{ transform: prefersReducedMotion ? 'none' : 'translateZ(15px)' }}
                 >
                   <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-[#F27D26] inline-block shadow-sm shadow-[#F27D26]"></span>
+                    <span className="w-3 h-3 rounded-full bg-[#5A8DFF] inline-block shadow-sm shadow-[#5A8DFF]"></span>
                     <span className="w-3 h-3 rounded-full bg-zinc-700 inline-block"></span>
                     <span className="w-3 h-3 rounded-full bg-zinc-800 inline-block"></span>
                   </div>
@@ -217,69 +217,69 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                 {/* 4 Depth Layered Mini-Cards */}
                 <div className="grid grid-cols-2 gap-3.5">
                   <div
-                    className="p-4 bg-zinc-950/90 border border-white/10 rounded-xl space-y-2 hover:border-[#F27D26] hover:bg-zinc-900/90 transition-all duration-300 group cursor-pointer shadow-lg hover:shadow-xl hover:shadow-[#F27D26]/10"
+                    className="p-4 bg-zinc-950/90 border border-white/10 rounded-xl space-y-2 hover:border-[#5A8DFF] hover:bg-zinc-900/90 transition-all duration-300 group cursor-pointer shadow-lg hover:shadow-xl hover:shadow-[#5A8DFF]/10"
                     style={{ transform: prefersReducedMotion ? 'none' : 'translateZ(26px)' }}
                   >
                     <div
-                      className="p-2 rounded-lg bg-[#F27D26]/10 w-fit group-hover:scale-110 group-hover:bg-[#F27D26] transition-all duration-300 shadow-md group-hover:shadow-[#F27D26]/50"
+                      className="p-2 rounded-lg bg-[#5A8DFF]/10 w-fit group-hover:scale-110 group-hover:bg-[#5A8DFF] transition-all duration-300 shadow-md group-hover:shadow-[#5A8DFF]/50"
                       style={{ transform: prefersReducedMotion ? 'none' : 'translateZ(40px)' }}
                     >
-                      <Palette className="w-5 h-5 text-[#F27D26] group-hover:text-black transition-colors" />
+                      <Palette className="w-5 h-5 text-[#5A8DFF] group-hover:text-black transition-colors" />
                     </div>
-                    <div className="text-xs font-black uppercase text-white group-hover:text-[#F27D26] transition-colors">01. Brand Identity</div>
+                    <div className="text-xs font-black uppercase text-white group-hover:text-[#5A8DFF] transition-colors">01. Brand Identity</div>
                     <div className="text-[11px] text-zinc-400 group-hover:text-zinc-200">Logos, Guidelines, Typography</div>
                   </div>
 
                   <div
-                    className="p-4 bg-zinc-950/90 border border-white/10 rounded-xl space-y-2 hover:border-[#F27D26] hover:bg-zinc-900/90 transition-all duration-300 group cursor-pointer shadow-lg hover:shadow-xl hover:shadow-[#F27D26]/10"
+                    className="p-4 bg-zinc-950/90 border border-white/10 rounded-xl space-y-2 hover:border-[#5A8DFF] hover:bg-zinc-900/90 transition-all duration-300 group cursor-pointer shadow-lg hover:shadow-xl hover:shadow-[#5A8DFF]/10"
                     style={{ transform: prefersReducedMotion ? 'none' : 'translateZ(38px)' }}
                   >
                     <div
-                      className="p-2 rounded-lg bg-white/10 w-fit group-hover:scale-110 group-hover:bg-[#F27D26] transition-all duration-300 shadow-md group-hover:shadow-[#F27D26]/50"
+                      className="p-2 rounded-lg bg-white/10 w-fit group-hover:scale-110 group-hover:bg-[#5A8DFF] transition-all duration-300 shadow-md group-hover:shadow-[#5A8DFF]/50"
                       style={{ transform: prefersReducedMotion ? 'none' : 'translateZ(40px)' }}
                     >
                       <Globe className="w-5 h-5 text-white group-hover:text-black transition-colors" />
                     </div>
-                    <div className="text-xs font-black uppercase text-white group-hover:text-[#F27D26] transition-colors">02. Modern Web</div>
+                    <div className="text-xs font-black uppercase text-white group-hover:text-[#5A8DFF] transition-colors">02. Modern Web</div>
                     <div className="text-[11px] text-zinc-400 group-hover:text-zinc-200">React, Next.js, WooCommerce</div>
                   </div>
 
                   <div
-                    className="p-4 bg-zinc-950/90 border border-white/10 rounded-xl space-y-2 hover:border-[#F27D26] hover:bg-zinc-900/90 transition-all duration-300 group cursor-pointer shadow-lg hover:shadow-xl hover:shadow-[#F27D26]/10"
+                    className="p-4 bg-zinc-950/90 border border-white/10 rounded-xl space-y-2 hover:border-[#5A8DFF] hover:bg-zinc-900/90 transition-all duration-300 group cursor-pointer shadow-lg hover:shadow-xl hover:shadow-[#5A8DFF]/10"
                     style={{ transform: prefersReducedMotion ? 'none' : 'translateZ(20px)' }}
                   >
                     <div
-                      className="p-2 rounded-lg bg-[#F27D26]/10 w-fit group-hover:scale-110 group-hover:bg-[#F27D26] transition-all duration-300 shadow-md group-hover:shadow-[#F27D26]/50"
+                      className="p-2 rounded-lg bg-[#5A8DFF]/10 w-fit group-hover:scale-110 group-hover:bg-[#5A8DFF] transition-all duration-300 shadow-md group-hover:shadow-[#5A8DFF]/50"
                       style={{ transform: prefersReducedMotion ? 'none' : 'translateZ(40px)' }}
                     >
-                      <Bot className="w-5 h-5 text-[#F27D26] group-hover:text-black transition-colors" />
+                      <Bot className="w-5 h-5 text-[#5A8DFF] group-hover:text-black transition-colors" />
                     </div>
-                    <div className="text-xs font-black uppercase text-white group-hover:text-[#F27D26] transition-colors">03. AI Solutions</div>
+                    <div className="text-xs font-black uppercase text-white group-hover:text-[#5A8DFF] transition-colors">03. AI Solutions</div>
                     <div className="text-[11px] text-zinc-400 group-hover:text-zinc-200">Gemini Bots, Workflow Automation</div>
                   </div>
 
                   <div
-                    className="p-4 bg-zinc-950/90 border border-white/10 rounded-xl space-y-2 hover:border-[#F27D26] hover:bg-zinc-900/90 transition-all duration-300 group cursor-pointer shadow-lg hover:shadow-xl hover:shadow-[#F27D26]/10"
+                    className="p-4 bg-zinc-950/90 border border-white/10 rounded-xl space-y-2 hover:border-[#5A8DFF] hover:bg-zinc-900/90 transition-all duration-300 group cursor-pointer shadow-lg hover:shadow-xl hover:shadow-[#5A8DFF]/10"
                     style={{ transform: prefersReducedMotion ? 'none' : 'translateZ(32px)' }}
                   >
                     <div
-                      className="p-2 rounded-lg bg-white/10 w-fit group-hover:scale-110 group-hover:bg-[#F27D26] transition-all duration-300 shadow-md group-hover:shadow-[#F27D26]/50"
+                      className="p-2 rounded-lg bg-white/10 w-fit group-hover:scale-110 group-hover:bg-[#5A8DFF] transition-all duration-300 shadow-md group-hover:shadow-[#5A8DFF]/50"
                       style={{ transform: prefersReducedMotion ? 'none' : 'translateZ(40px)' }}
                     >
                       <TrendingUp className="w-5 h-5 text-white group-hover:text-black transition-colors" />
                     </div>
-                    <div className="text-xs font-black uppercase text-white group-hover:text-[#F27D26] transition-colors">04. Scalable Growth</div>
+                    <div className="text-xs font-black uppercase text-white group-hover:text-[#5A8DFF] transition-colors">04. Scalable Growth</div>
                     <div className="text-[11px] text-zinc-400 group-hover:text-zinc-200">100+ Free Tools & Products</div>
                   </div>
                 </div>
 
                 {/* Micro Metric Banner */}
                 <div
-                  className="p-3 bg-zinc-950/90 border border-white/10 rounded-xl flex items-center justify-between text-xs shadow-md hover:border-[#F27D26]/40 transition-colors"
+                  className="p-3 bg-zinc-950/90 border border-white/10 rounded-xl flex items-center justify-between text-xs shadow-md hover:border-[#5A8DFF]/40 transition-colors"
                   style={{ transform: prefersReducedMotion ? 'none' : 'translateZ(18px)' }}
                 >
                   <span className="text-zinc-400 font-medium">Google Core Web Vitals Performance:</span>
-                  <span className="text-[#F27D26] font-black font-mono flex items-center gap-1.5">
+                  <span className="text-[#5A8DFF] font-black font-mono flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                     100/100 Green
                   </span>
@@ -331,11 +331,11 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
             >
               <div className="space-y-4">
                 <div className="icon-pop-target w-12 h-12 rounded-xl bg-zinc-950 border border-white/10 flex items-center justify-center shadow-md">
-                  {iconMap[service.iconName] || <Globe className="w-6 h-6 text-[#F27D26]" />}
+                  {iconMap[service.iconName] || <Globe className="w-6 h-6 text-[#5A8DFF]" />}
                 </div>
 
                 <div style={{ transform: 'translateZ(25px)' }}>
-                  <h3 className="text-lg font-black text-white uppercase tracking-tight group-hover:text-[#F27D26] transition-colors">
+                  <h3 className="text-lg font-black text-white uppercase tracking-tight group-hover:text-[#5A8DFF] transition-colors">
                     {service.name}
                   </h3>
                   <p className="text-zinc-400 text-xs mt-1.5 line-clamp-2 leading-relaxed">
@@ -349,7 +349,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                 >
                   {service.features.slice(0, 3).map((feat, idx) => (
                     <li key={idx} className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#F27D26] shrink-0" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#5A8DFF] shrink-0" />
                       <span className="line-clamp-1">{feat}</span>
                     </li>
                   ))}
@@ -362,9 +362,9 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
               >
                 <div>
                   <span className="text-zinc-500">Starting from </span>
-                  <span className="font-extrabold text-[#F27D26]">{formatPrice(service.startingPriceUSD)}</span>
+                  <span className="font-extrabold text-[#5A8DFF]">{formatPrice(service.startingPriceUSD)}</span>
                 </div>
-                <div className="text-[#F27D26] font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1 uppercase tracking-wider text-[11px]">
+                <div className="text-[#5A8DFF] font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1 uppercase tracking-wider text-[11px]">
                   View Service
                   <ArrowRight className="w-3.5 h-3.5" />
                 </div>
@@ -379,8 +379,8 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="space-y-2 max-w-xl">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-[#F27D26] text-[10px] font-extrabold uppercase tracking-widest">
-                <Wrench className="w-3.5 h-3.5 text-[#F27D26]" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-[#5A8DFF] text-[10px] font-extrabold uppercase tracking-widest">
+                <Wrench className="w-3.5 h-3.5 text-[#5A8DFF]" />
                 Free Browser Utilities
               </div>
               <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tighter">
@@ -418,7 +418,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                 </div>
 
                 <div style={{ transform: 'translateZ(25px)' }}>
-                  <h3 className="text-sm font-bold text-white group-hover:text-[#F27D26] transition-colors">
+                  <h3 className="text-sm font-bold text-white group-hover:text-[#5A8DFF] transition-colors">
                     {tool.name}
                   </h3>
                   <p className="text-zinc-400 text-[11px] mt-1 line-clamp-2">
@@ -427,7 +427,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                 </div>
 
                 <div
-                  className="text-[11px] text-[#F27D26] font-bold uppercase tracking-wider flex items-center gap-1 group-hover:underline pt-1"
+                  className="text-[11px] text-[#5A8DFF] font-bold uppercase tracking-wider flex items-center gap-1 group-hover:underline pt-1"
                   style={{ transform: 'translateZ(30px)' }}
                 >
                   Launch Tool →
@@ -443,7 +443,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-2 max-w-xl">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-white text-[10px] font-extrabold uppercase tracking-widest">
-              <Package className="w-3.5 h-3.5 text-[#F27D26]" />
+              <Package className="w-3.5 h-3.5 text-[#5A8DFF]" />
               Digital Storefront
             </div>
             <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tighter">
@@ -485,14 +485,14 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                   alt={prod.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-[#050505]/90 backdrop-blur-md text-[#F27D26] text-[10px] font-extrabold uppercase tracking-wider border border-[#F27D26]/30">
+                <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-[#050505]/90 backdrop-blur-md text-[#5A8DFF] text-[10px] font-extrabold uppercase tracking-wider border border-[#5A8DFF]/30">
                   {prod.category}
                 </div>
               </div>
 
               <div className="p-5 space-y-3 flex-1 flex flex-col justify-between">
                 <div style={{ transform: 'translateZ(25px)' }}>
-                  <h3 className="text-sm font-bold text-white group-hover:text-[#F27D26] transition-colors line-clamp-2">
+                  <h3 className="text-sm font-bold text-white group-hover:text-[#5A8DFF] transition-colors line-clamp-2">
                     {prod.title}
                   </h3>
                   <p className="text-zinc-400 text-xs mt-1.5 line-clamp-2">
@@ -508,12 +508,12 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                     <span className="text-zinc-500 line-through text-[10px] mr-1">
                       {prod.originalPriceUSD && formatPrice(prod.originalPriceUSD)}
                     </span>
-                    <span className="font-extrabold text-[#F27D26] text-sm">
+                    <span className="font-extrabold text-[#5A8DFF] text-sm">
                       {formatPrice(prod.priceUSD)}
                     </span>
                   </div>
 
-                  <span className="text-[#F27D26] font-bold uppercase text-[11px] tracking-wider group-hover:underline flex items-center gap-1">
+                  <span className="text-[#5A8DFF] font-bold uppercase text-[11px] tracking-wider group-hover:underline flex items-center gap-1">
                     Get Access
                     <ArrowRight className="w-3.5 h-3.5" />
                   </span>
@@ -546,7 +546,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
               { num: '05', title: 'Delivery & Support', desc: 'Code handoff, documentation, video training, and ongoing maintenance.' }
             ].map((step, idx) => (
               <TiltCard key={idx} className="p-5 h-full space-y-3 relative">
-                <div className="text-2xl font-black text-[#F27D26] font-mono" style={{ transform: 'translateZ(30px)' }}>
+                <div className="text-2xl font-black text-[#5A8DFF] font-mono" style={{ transform: 'translateZ(30px)' }}>
                   {step.num}
                 </div>
                 <h3 className="text-sm font-bold text-white uppercase" style={{ transform: 'translateZ(25px)' }}>
@@ -572,11 +572,11 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
-            { icon: <Palette className="w-6 h-6 text-[#F27D26]" />, title: 'World-Class Design', desc: 'Bespoke typography, spacious negative space, and mathematical design systems that build immediate trust.' },
+            { icon: <Palette className="w-6 h-6 text-[#5A8DFF]" />, title: 'World-Class Design', desc: 'Bespoke typography, spacious negative space, and mathematical design systems that build immediate trust.' },
             { icon: <Zap className="w-6 h-6 text-white" />, title: 'Performance Focused', desc: 'Sub-second loading times engineered with React, Next.js, and serverless caching for maximum Core Web Vitals scores.' },
-            { icon: <ShieldCheck className="w-6 h-6 text-[#F27D26]" />, title: 'Secure & Reliable', desc: 'Full SSL hardening, input validation, clean code structure, and zero vulnerability configurations.' },
+            { icon: <ShieldCheck className="w-6 h-6 text-[#5A8DFF]" />, title: 'Secure & Reliable', desc: 'Full SSL hardening, input validation, clean code structure, and zero vulnerability configurations.' },
             { icon: <TrendingUp className="w-6 h-6 text-white" />, title: 'Conversion Focused', desc: 'Direct-response layouts and strategic call-to-action flows that turn visitors into paying customers.' },
-            { icon: <Bot className="w-6 h-6 text-[#F27D26]" />, title: 'AI-Native Capability', desc: 'Seamlessly integrate custom Gemini AI models for customer support chatbots and automated content workflows.' },
+            { icon: <Bot className="w-6 h-6 text-[#5A8DFF]" />, title: 'AI-Native Capability', desc: 'Seamlessly integrate custom Gemini AI models for customer support chatbots and automated content workflows.' },
             { icon: <Layers className="w-6 h-6 text-white" />, title: 'Scalable Technology', desc: 'Built on industry-standard React and TypeScript architectures that grow as your business expands.' }
           ].map((card, idx) => (
             <TiltCard key={idx} className="p-6 h-full space-y-3">
@@ -608,7 +608,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
             {testimonials.map((test) => (
               <TiltCard key={test.id} className="p-6 h-full space-y-4 flex flex-col justify-between">
                 <div className="space-y-3">
-                  <div className="flex items-center gap-1 text-[#F27D26]" style={{ transform: 'translateZ(30px)' }}>
+                  <div className="flex items-center gap-1 text-[#5A8DFF]" style={{ transform: 'translateZ(30px)' }}>
                     {Array(test.rating).fill(0).map((_, i) => (
                       <Star key={i} className="w-4 h-4 fill-current" />
                     ))}
@@ -651,7 +651,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                   className="w-full p-4 text-left font-bold text-xs sm:text-sm text-white flex items-center justify-between gap-4"
                 >
                   <span>{faq.q}</span>
-                  <ChevronDown className={`w-4 h-4 text-zinc-400 transition-transform ${isOpen ? 'rotate-180 text-[#F27D26]' : ''}`} />
+                  <ChevronDown className={`w-4 h-4 text-zinc-400 transition-transform ${isOpen ? 'rotate-180 text-[#5A8DFF]' : ''}`} />
                 </button>
                 {isOpen && (
                   <div className="px-4 pb-4 text-xs text-zinc-400 leading-relaxed border-t border-white/10 pt-3">

@@ -16,49 +16,49 @@ export const BranifyIconMark: React.FC<{ className?: string }> = ({ className = 
     aria-hidden="true"
   >
     <defs>
-      {/* Orange Gradient for top wing */}
-      <linearGradient id="branify-orange-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#FF9100" />
-        <stop offset="45%" stopColor="#F27D26" />
-        <stop offset="100%" stopColor="#D14B00" />
+      {/* Cobalt Blue Gradient for top wing */}
+      <linearGradient id="branify-blue-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#5A8DFF" />
+        <stop offset="45%" stopColor="#3B6EF6" />
+        <stop offset="100%" stopColor="#2450C7" />
       </linearGradient>
 
-      {/* Metallic White/Silver Gradient for lower loop */}
-      <linearGradient id="branify-white-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#FFFFFF" />
-        <stop offset="60%" stopColor="#F4F4F5" />
-        <stop offset="100%" stopColor="#D4D4D8" />
+      {/* Metallic Silver Gradient for lower loop */}
+      <linearGradient id="branify-silver-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#EDEFF3" />
+        <stop offset="60%" stopColor="#C7CBD4" />
+        <stop offset="100%" stopColor="#9AA0AC" />
       </linearGradient>
 
       {/* Subtle Glow Filter */}
-      <filter id="orange-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <filter id="blue-glow" x="-20%" y="-20%" width="140%" height="140%">
         <feGaussianBlur stdDeviation="3" result="blur" />
         <feComposite in="SourceGraphic" in2="blur" operator="over" />
       </filter>
     </defs>
 
-    {/* Top Orange Wing / Arrow Blade & Upper Loop of B */}
+    {/* Top Cobalt Blue Wing / Arrow Blade & Upper Loop of B */}
     <path
       d="M 18 36 L 42 14 H 80 C 98 14 110 25 110 41 C 110 54 99 63 83 67 L 40 40 L 18 36 Z"
-      fill="url(#branify-orange-grad)"
-      filter="url(#orange-glow)"
+      fill="url(#branify-blue-grad)"
+      filter="url(#blue-glow)"
     />
     {/* Top Loop Inner Void */}
     <path
       d="M 48 26 H 75 C 83 26 89 30 89 37 C 89 44 83 48 73 48 L 41 28 L 48 26 Z"
-      fill="#0B0C10"
+      fill="#0A0A0D"
     />
 
     {/* Diagonal Center Cut Separation Highlight */}
     <path
       d="M 38 41 L 83 67 L 76 72 L 30 46 Z"
-      fill="#0B0C10"
+      fill="#0A0A0D"
     />
 
-    {/* Lower White Loop of B with Sharp Parallel Tail */}
+    {/* Lower Silver Loop of B with Sharp Parallel Tail */}
     <path
       d="M 14 78 L 52 53 H 84 C 102 53 114 64 114 80 C 114 98 98 106 74 106 H 32 C 22 106 18 98 28 98 L 72 98 C 86 98 94 91 94 80 C 94 69 86 63 70 63 L 40 81 L 14 78 Z"
-      fill="url(#branify-white-grad)"
+      fill="url(#branify-silver-grad)"
     />
   </svg>
 );
@@ -102,17 +102,17 @@ export const BranifyLogo: React.FC<BranifyLogoProps> = ({
         <div className="mt-2 flex flex-col items-center">
           <div className={`font-black uppercase flex items-center leading-none ${textSizes[size]}`}>
             <span className="text-white">BRAN</span>
-            <span className="text-[#F27D26]">IFY</span>
+            <span className="text-[#5A8DFF]">IFY</span>
           </div>
 
           {showTagline && (
             <div className="mt-2 flex flex-col items-center">
               <div className={`flex items-center uppercase font-black text-zinc-400 ${taglineSizes[size]}`}>
                 <span className="text-white">BUILD.</span>
-                <span className="text-[#F27D26]">BRAND.</span>
+                <span className="text-[#5A8DFF]">BRAND.</span>
                 <span className="text-white">GROW.</span>
               </div>
-              <div className="w-12 h-0.5 bg-[#F27D26] rounded-full mt-1.5"></div>
+              <div className="w-12 h-0.5 bg-[#5A8DFF] rounded-full mt-1.5"></div>
             </div>
           )}
         </div>
@@ -131,13 +131,13 @@ export const BranifyLogo: React.FC<BranifyLogoProps> = ({
       <div className="flex flex-col justify-center">
         <div className={`font-black uppercase flex items-center leading-none font-sans ${textSizes[size]}`}>
           <span className="text-white">BRAN</span>
-          <span className="text-[#F27D26]">IFY</span>
+          <span className="text-[#5A8DFF]">IFY</span>
         </div>
 
         {showTagline && (
           <div className={`flex items-center uppercase font-extrabold text-zinc-400 mt-1 ${taglineSizes[size]}`}>
             <span className="text-white">BUILD.</span>
-            <span className="text-[#F27D26]">BRAND.</span>
+            <span className="text-[#5A8DFF]">BRAND.</span>
             <span className="text-white">GROW.</span>
           </div>
         )}

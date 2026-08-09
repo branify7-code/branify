@@ -62,7 +62,7 @@ export const MobileAccordionNav: React.FC<MobileAccordionNavProps> = ({
                 onClick={() => handleLinkClick(nav.path)}
                 className={`w-full text-left px-4 py-3 rounded-xl transition-colors font-bold text-sm flex items-center justify-between ${
                   isActive
-                    ? 'bg-[#F27D26]/10 text-[#F27D26] border border-[#F27D26]/30'
+                    ? 'bg-[#5A8DFF]/10 text-[#5A8DFF] border border-[#5A8DFF]/30'
                     : 'text-zinc-200 hover:bg-zinc-900'
                 }`}
               >
@@ -79,7 +79,7 @@ export const MobileAccordionNav: React.FC<MobileAccordionNavProps> = ({
                 <button
                   onClick={() => handleLinkClick(nav.path)}
                   className={`flex-1 text-left px-3 py-2.5 font-bold text-sm transition-colors ${
-                    isActive ? 'text-[#F27D26]' : 'text-zinc-200'
+                    isActive ? 'text-[#5A8DFF]' : 'text-zinc-200'
                   }`}
                 >
                   {nav.title}
@@ -91,7 +91,7 @@ export const MobileAccordionNav: React.FC<MobileAccordionNavProps> = ({
                 >
                   <ChevronDown
                     className={`w-4 h-4 transition-transform duration-200 ${
-                      isExpanded ? 'rotate-180 text-[#F27D26]' : ''
+                      isExpanded ? 'rotate-180 text-[#5A8DFF]' : ''
                     }`}
                   />
                 </button>
@@ -102,7 +102,7 @@ export const MobileAccordionNav: React.FC<MobileAccordionNavProps> = ({
                 <div className="px-3 pb-3 pt-1 space-y-4 bg-zinc-950/80 border-t border-white/5 animate-in fade-in duration-150">
                   {nav.menuConfig.sections.map((section, idx) => (
                     <div key={idx} className="space-y-2">
-                      <div className="text-[10px] font-black uppercase tracking-widest text-[#F27D26] pt-1">
+                      <div className="text-[10px] font-black uppercase tracking-widest text-[#5A8DFF] pt-1">
                         {section.heading}
                       </div>
                       <div className="grid grid-cols-1 gap-1 pl-1">
@@ -114,12 +114,12 @@ export const MobileAccordionNav: React.FC<MobileAccordionNavProps> = ({
                           >
                             <span className="truncate">{item.title}</span>
                             {item.price && (
-                              <span className="text-[10px] font-mono font-bold text-[#F27D26]">
+                              <span className="text-[10px] font-mono font-bold text-[#5A8DFF]">
                                 {item.price}
                               </span>
                             )}
                             {item.badge && (
-                              <span className="text-[8px] px-1 py-0.2 bg-[#F27D26] text-black font-black rounded">
+                              <span className="text-[8px] px-1 py-0.2 bg-[#5A8DFF] text-black font-black rounded">
                                 {item.badge}
                               </span>
                             )}
@@ -133,7 +133,7 @@ export const MobileAccordionNav: React.FC<MobileAccordionNavProps> = ({
                   {nav.menuConfig.bottomCta && (
                     <button
                       onClick={() => handleLinkClick(nav.menuConfig!.bottomCta!.path)}
-                      className="w-full py-2.5 px-3 bg-[#F27D26]/10 border border-[#F27D26]/30 hover:bg-[#F27D26] hover:text-black text-[#F27D26] rounded-xl text-xs font-bold transition-all flex items-center justify-between"
+                      className="w-full py-2.5 px-3 bg-[#5A8DFF]/10 border border-[#5A8DFF]/30 hover:bg-[#5A8DFF] hover:text-black text-[#5A8DFF] rounded-xl text-xs font-bold transition-all flex items-center justify-between"
                     >
                       <span>{nav.menuConfig.bottomCta.linkText}</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -149,7 +149,7 @@ export const MobileAccordionNav: React.FC<MobileAccordionNavProps> = ({
       <div className="pt-4 border-t border-white/10">
         <button
           onClick={() => handleLinkClick('/contact')}
-          className="w-full py-3.5 bg-[#F27D26] text-black hover:bg-orange-500 font-extrabold text-xs uppercase tracking-widest rounded-xl shadow-lg flex items-center justify-center gap-2"
+          className="w-full py-3.5 btn-gradient-primary font-extrabold text-xs uppercase tracking-widest rounded-xl shadow-lg flex items-center justify-center gap-2"
         >
           <span>Start a Project</span>
           <ArrowRight className="w-4 h-4" />

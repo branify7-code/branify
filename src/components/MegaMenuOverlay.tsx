@@ -37,17 +37,17 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
 }) => {
   const getIcon = (iconName?: string) => {
     switch (iconName) {
-      case 'Globe': return <Globe className="w-4 h-4 text-[#F27D26]" />;
-      case 'LayoutGrid': return <LayoutGrid className="w-4 h-4 text-[#F27D26]" />;
-      case 'MousePointerClick': return <MousePointerClick className="w-4 h-4 text-[#F27D26]" />;
-      case 'Figma': return <Figma className="w-4 h-4 text-[#F27D26]" />;
-      case 'Palette': return <Palette className="w-4 h-4 text-[#F27D26]" />;
-      case 'Sparkles': return <Sparkles className="w-4 h-4 text-[#F27D26]" />;
-      case 'Share2': return <Share2 className="w-4 h-4 text-[#F27D26]" />;
-      case 'Presentation': return <Presentation className="w-4 h-4 text-[#F27D26]" />;
-      case 'Search': return <Search className="w-4 h-4 text-[#F27D26]" />;
-      case 'Bot': return <Bot className="w-4 h-4 text-[#F27D26]" />;
-      case 'TrendingUp': return <TrendingUp className="w-4 h-4 text-[#F27D26]" />;
+      case 'Globe': return <Globe className="w-4 h-4 text-[#5A8DFF]" />;
+      case 'LayoutGrid': return <LayoutGrid className="w-4 h-4 text-[#5A8DFF]" />;
+      case 'MousePointerClick': return <MousePointerClick className="w-4 h-4 text-[#5A8DFF]" />;
+      case 'Figma': return <Figma className="w-4 h-4 text-[#5A8DFF]" />;
+      case 'Palette': return <Palette className="w-4 h-4 text-[#5A8DFF]" />;
+      case 'Sparkles': return <Sparkles className="w-4 h-4 text-[#5A8DFF]" />;
+      case 'Share2': return <Share2 className="w-4 h-4 text-[#5A8DFF]" />;
+      case 'Presentation': return <Presentation className="w-4 h-4 text-[#5A8DFF]" />;
+      case 'Search': return <Search className="w-4 h-4 text-[#5A8DFF]" />;
+      case 'Bot': return <Bot className="w-4 h-4 text-[#5A8DFF]" />;
+      case 'TrendingUp': return <TrendingUp className="w-4 h-4 text-[#5A8DFF]" />;
       default: return <CheckCircle2 className="w-3.5 h-3.5 text-zinc-500" />;
     }
   };
@@ -69,7 +69,7 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
             {config.sections.map((section, idx) => (
               <div key={idx} className="space-y-4">
                 <div className="flex items-center gap-2 pb-2 border-b border-white/10">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#F27D26]"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#5A8DFF]"></span>
                   <h3 className="text-xs font-black uppercase tracking-widest text-zinc-300">
                     {section.heading}
                   </h3>
@@ -81,16 +81,16 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
                         onClick={() => handleLinkClick(item.path)}
                         className="w-full text-left p-2.5 rounded-xl transition-all duration-200 group hover:bg-zinc-900/90 border border-transparent hover:border-white/10 flex items-start gap-3"
                       >
-                        <div className="p-2 rounded-lg bg-zinc-900 group-hover:bg-[#F27D26]/10 border border-white/5 group-hover:border-[#F27D26]/30 transition-colors mt-0.5">
+                        <div className="p-2 rounded-lg bg-zinc-900 group-hover:bg-[#5A8DFF]/10 border border-white/5 group-hover:border-[#5A8DFF]/30 transition-colors mt-0.5">
                           {getIcon(item.iconName)}
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center justify-between gap-2">
-                            <span className="text-sm font-bold text-zinc-100 group-hover:text-[#F27D26] transition-colors">
+                            <span className="text-sm font-bold text-zinc-100 group-hover:text-[#5A8DFF] transition-colors">
                               {item.title}
                             </span>
                             {item.badge && (
-                              <span className="px-1.5 py-0.5 text-[9px] font-black uppercase bg-[#F27D26] text-black rounded">
+                              <span className="px-1.5 py-0.5 text-[9px] font-black uppercase bg-[#5A8DFF] text-black rounded">
                                 {item.badge}
                               </span>
                             )}
@@ -115,7 +115,7 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
             {config.sections.map((section, idx) => (
               <div key={idx} className="space-y-3">
                 <div className="pb-2 border-b border-white/10">
-                  <h3 className="text-xs font-black uppercase tracking-widest text-[#F27D26]">
+                  <h3 className="text-xs font-black uppercase tracking-widest text-[#5A8DFF]">
                     {section.heading}
                   </h3>
                 </div>
@@ -130,7 +130,7 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
                           {item.title}
                         </span>
                         {item.badge && (
-                          <span className="px-1 py-0.2 text-[8px] font-bold bg-[#F27D26]/20 text-[#F27D26] border border-[#F27D26]/40 rounded">
+                          <span className="px-1 py-0.2 text-[8px] font-bold bg-[#5A8DFF]/20 text-[#5A8DFF] border border-[#5A8DFF]/40 rounded">
                             {item.badge}
                           </span>
                         )}
@@ -148,7 +148,7 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
             {config.sections.map((section, idx) => (
               <div key={idx} className="space-y-3">
                 <div className="pb-1.5 border-b border-white/10 flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#F27D26]"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#5A8DFF]"></span>
                   <h3 className="text-[11px] font-black uppercase tracking-wider text-zinc-200">
                     {section.heading}
                   </h3>
@@ -158,7 +158,7 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
                     <li key={item.title}>
                       <button
                         onClick={() => handleLinkClick(item.path)}
-                        className="w-full text-left py-1 px-1.5 rounded hover:bg-zinc-900 transition-colors text-xs text-zinc-400 hover:text-[#F27D26] flex items-center justify-between"
+                        className="w-full text-left py-1 px-1.5 rounded hover:bg-zinc-900 transition-colors text-xs text-zinc-400 hover:text-[#5A8DFF] flex items-center justify-between"
                       >
                         <span className="truncate">{item.title}</span>
                         {item.badge && (
@@ -179,7 +179,7 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="md:col-span-2 space-y-4">
               <div className="pb-2 border-b border-white/10">
-                <h3 className="text-xs font-black uppercase tracking-widest text-[#F27D26]">
+                <h3 className="text-xs font-black uppercase tracking-widest text-[#5A8DFF]">
                   Filter Portfolio By Category
                 </h3>
               </div>
@@ -188,9 +188,9 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
                   <button
                     key={item.title}
                     onClick={() => handleLinkClick(item.path)}
-                    className="p-3 bg-zinc-900/60 hover:bg-zinc-800/90 border border-white/5 hover:border-[#F27D26]/40 rounded-xl text-left transition-all group"
+                    className="p-3 bg-zinc-900/60 hover:bg-zinc-800/90 border border-white/5 hover:border-[#5A8DFF]/40 rounded-xl text-left transition-all group"
                   >
-                    <div className="text-xs font-bold text-zinc-200 group-hover:text-[#F27D26] transition-colors">
+                    <div className="text-xs font-bold text-zinc-200 group-hover:text-[#5A8DFF] transition-colors">
                       {item.title}
                     </div>
                     {item.desc && (
@@ -207,7 +207,7 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
             <div className="bg-gradient-to-br from-zinc-900 to-[#050505] p-5 rounded-2xl border border-white/10 flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="px-2 py-0.5 bg-[#F27D26] text-black text-[10px] font-black rounded-md">
+                  <span className="px-2 py-0.5 bg-[#5A8DFF] text-black text-[10px] font-black rounded-md">
                     FEATURED CASE STUDY
                   </span>
                   <span className="text-[10px] text-zinc-400 font-mono">E-COMMERCE & REBRAND</span>
@@ -221,7 +221,7 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
               </div>
               <button
                 onClick={() => handleLinkClick('/portfolio')}
-                className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#F27D26] hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#5A8DFF] hover:text-white transition-colors"
               >
                 <span>Read Full Case Study</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -235,7 +235,7 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
             {config.sections.map((section, idx) => (
               <div key={idx} className="space-y-4">
                 <div className="pb-2 border-b border-white/10 flex items-center justify-between">
-                  <h3 className="text-xs font-black uppercase tracking-widest text-[#F27D26]">
+                  <h3 className="text-xs font-black uppercase tracking-widest text-[#5A8DFF]">
                     {section.heading}
                   </h3>
                   <span className="text-[10px] text-zinc-500 font-mono">Transparent Fixed Rates</span>
@@ -257,7 +257,7 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
                           </div>
                         )}
                       </div>
-                      <span className="px-2.5 py-1 rounded-lg bg-[#F27D26]/10 text-[#F27D26] font-mono text-xs font-bold shrink-0 border border-[#F27D26]/30">
+                      <span className="px-2.5 py-1 rounded-lg bg-[#5A8DFF]/10 text-[#5A8DFF] font-mono text-xs font-bold shrink-0 border border-[#5A8DFF]/30">
                         {item.price}
                       </span>
                     </button>
@@ -272,7 +272,7 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="md:col-span-2 space-y-4">
               <div className="pb-2 border-b border-white/10">
-                <h3 className="text-xs font-black uppercase tracking-widest text-[#F27D26]">
+                <h3 className="text-xs font-black uppercase tracking-widest text-[#5A8DFF]">
                   Blog Topics & Categories
                 </h3>
               </div>
@@ -283,7 +283,7 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
                     onClick={() => handleLinkClick(item.path)}
                     className="p-2.5 bg-zinc-900/60 hover:bg-zinc-800 border border-white/5 hover:border-white/15 rounded-xl text-left transition-colors flex items-center gap-2 group"
                   >
-                    <BookOpen className="w-3.5 h-3.5 text-[#F27D26]" />
+                    <BookOpen className="w-3.5 h-3.5 text-[#5A8DFF]" />
                     <span className="text-xs font-bold text-zinc-300 group-hover:text-white transition-colors">
                       {item.title}
                     </span>
@@ -296,12 +296,12 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
             <div className="bg-zinc-900/80 p-5 rounded-2xl border border-white/10 flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="px-2 py-0.5 bg-[#F27D26] text-black text-[9px] font-black rounded">
+                  <span className="px-2 py-0.5 bg-[#5A8DFF] text-black text-[9px] font-black rounded">
                     LATEST ARTICLE
                   </span>
                   <span className="text-[10px] text-zinc-400">5 min read</span>
                 </div>
-                <h4 className="text-sm font-bold text-white leading-snug mb-2 hover:text-[#F27D26] transition-colors cursor-pointer" onClick={() => handleLinkClick('/blog')}>
+                <h4 className="text-sm font-bold text-white leading-snug mb-2 hover:text-[#5A8DFF] transition-colors cursor-pointer" onClick={() => handleLinkClick('/blog')}>
                   10 Essential Gemini 2.5 API Prompt Formulas for SaaS Copywriting
                 </h4>
                 <p className="text-xs text-zinc-400 line-clamp-3 mb-4">
@@ -310,7 +310,7 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
               </div>
               <button
                 onClick={() => handleLinkClick('/blog')}
-                className="text-xs font-black text-[#F27D26] hover:underline inline-flex items-center gap-1"
+                className="text-xs font-black text-[#5A8DFF] hover:underline inline-flex items-center gap-1"
               >
                 <span>Read Blog →</span>
               </button>
@@ -333,7 +333,7 @@ export const MegaMenuOverlay: React.FC<MegaMenuOverlayProps> = ({
             </div>
             <button
               onClick={() => handleLinkClick(config.bottomCta!.path)}
-              className="px-5 py-2.5 bg-[#F27D26] hover:bg-orange-600 text-black font-black text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg flex items-center gap-2 shrink-0"
+              className="px-5 py-2.5 btn-gradient-primary uppercase tracking-wider rounded-xl text-xs flex items-center gap-2 shrink-0"
             >
               <span>{config.bottomCta.linkText}</span>
             </button>

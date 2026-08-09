@@ -3,7 +3,7 @@
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    background-color: #050505;
+    background-color: #0a0a0d;
     color: #ffffff;
   }
 
@@ -16,20 +16,36 @@
   }
 }
 
-/* Custom Scrollbar for Bold Theme */
+/* Custom Scrollbar for Cobalt + Silver Theme */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: #0a0a0d;
 }
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: #26262e;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #F27D26;
+  background: #5A8DFF;
+}
+
+/* Announcement Bar Shimmer Sweep */
+@keyframes shimmer-sweep {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}
+
+.animate-shimmer-sweep {
+  background: linear-gradient(100deg, #9AA0AC, #EDEFF3 45%, #C7CBD4 75%, #9AA0AC);
+  background-size: 200% 100%;
+  animation: shimmer-sweep 6s linear infinite;
 }
 
 /* 3D Hero Animations & Utility Classes */
@@ -119,53 +135,47 @@
 
 /* --- Gradient & 3D Interactive Buttons --- */
 .btn-gradient-primary {
-  background: linear-gradient(135deg, #ffb347 0%, #ff7a1a 50%, #e85d00 100%);
+  background: linear-gradient(135deg, #EDEFF3, #5A8DFF 45%, #3B6EF6 75%, #2450C7);
   background-size: 200% 200%;
   background-position: 0% 0%;
-  color: #000000;
+  color: #0a0e1a;
   font-weight: 800;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              background-position 0.25s ease,
-              border-color 0.25s ease;
+  box-shadow: 0 8px 24px rgba(59, 110, 246, 0.25);
+  transition: all 0.25s ease;
   will-change: transform, box-shadow, background-position;
 }
 
 .btn-gradient-primary:hover {
   background-position: 100% 0%;
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 14px 34px rgba(255, 122, 26, 0.45);
+  box-shadow: 0 14px 34px rgba(59, 110, 246, 0.45), 0 0 20px rgba(199, 203, 212, 0.2);
 }
 
 .btn-gradient-primary:active {
   transform: translateY(-1px) scale(0.99);
-  box-shadow: 0 6px 20px rgba(255, 122, 26, 0.35);
+  box-shadow: 0 6px 20px rgba(59, 110, 246, 0.35);
 }
 
 .btn-outline-secondary {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1.5px solid #3a3a44;
   color: #ffffff;
   font-weight: 700;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.25s ease,
-              color 0.25s ease,
-              background-color 0.25s ease;
+  transition: all 0.25s ease;
   will-change: transform, box-shadow;
 }
 
 .btn-outline-secondary:hover {
-  border-color: #ff7a1a;
-  color: #ffb347;
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 24px rgba(255, 122, 26, 0.25);
-  background-color: rgba(255, 122, 26, 0.05);
+  border-color: #5A8DFF;
+  color: #EDEFF3;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(59, 110, 246, 0.15);
+  background-color: rgba(59, 110, 246, 0.05);
 }
 
 .btn-outline-secondary:active {
   transform: translateY(-1px) scale(0.99);
-  box-shadow: 0 4px 12px rgba(255, 122, 26, 0.15);
+  box-shadow: 0 4px 12px rgba(59, 110, 246, 0.15);
 }
 
 /* --- 3D Tilt Card Base Utilities --- */
@@ -174,7 +184,7 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(400px circle at var(--x, 50%) var(--y, 50%), rgba(255, 122, 26, 0.22), transparent 75%);
+  background: radial-gradient(400px circle at var(--x, 50%) var(--y, 50%), rgba(59, 110, 246, 0.22), transparent 75%);
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: 1;
@@ -190,7 +200,7 @@
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: radial-gradient(350px circle at var(--x, 50%) var(--y, 50%), rgba(255, 122, 26, 0.8), rgba(255, 255, 255, 0.1) 40%, transparent 80%);
+  background: radial-gradient(350px circle at var(--x, 50%) var(--y, 50%), rgba(90, 141, 255, 0.8), rgba(237, 239, 243, 0.2) 40%, transparent 80%);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -212,20 +222,21 @@
 
 .tilt-card-wrapper:hover .icon-pop-target {
   transform: translateZ(60px) scale(1.08);
-  background: linear-gradient(145deg, #ff7a1a 0%, #ffb347 100%) !important;
-  color: #000000 !important;
-  box-shadow: 0 10px 25px rgba(255, 122, 26, 0.5);
+  background: linear-gradient(145deg, #EDEFF3 0%, #5A8DFF 55%, #3B6EF6 100%) !important;
+  color: #0a0e1a !important;
+  box-shadow: 0 10px 25px rgba(59, 110, 246, 0.45);
 }
 
 .tilt-card-wrapper:hover .icon-pop-target * {
-  color: #000000 !important;
+  color: #0a0e1a !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-blob-1,
   .animate-blob-2,
   .animate-blob-3,
-  .animate-hero-float {
+  .animate-hero-float,
+  .animate-shimmer-sweep {
     animation: none !important;
   }
   .animate-word-tilt {
@@ -241,3 +252,4 @@
     transform: none !important;
   }
 }
+
