@@ -52,11 +52,14 @@ export interface ProductItem {
 export type ToolCategory = 
   | 'PDF Tools' 
   | 'Image Tools' 
-  | 'Text Tools' 
+  | 'Text & Content Tools' 
+  | 'Text Tools'
   | 'Developer Tools' 
   | 'SEO Tools' 
   | 'Business Tools' 
+  | 'Finance Tools'
   | 'Marketing Tools' 
+  | 'Security & Utility Tools'
   | 'Security / Utility Tools';
 
 export interface ToolItem {

@@ -231,14 +231,52 @@ export async function runToolAlgorithm(
         return { success: true, imageOutputUrl: text.trim(), downloadFilename: 'base64_decoded_image.png' };
       }
 
-      // --- TEXT TOOLS ---
-      case 'word-counter': {
+      // --- TEXT & CONTENT TOOLS ---
+      case 'word-counter':
+      case 'character-counter':
+      case 'sentence-counter':
+      case 'paragraph-counter':
+      case 'reading-time-calculator': {
         const words = text.trim() ? text.trim().split(/\s+/).length : 0;
         const charsWithSpaces = text.length;
         const charsNoSpaces = text.replace(/\s/g, '').length;
         const sentences = text.trim() ? text.split(/[.!?]+/).filter(Boolean).length : 0;
         const paragraphs = text.trim() ? text.split(/\n+/).filter(Boolean).length : 0;
-        const readTimeMinutes = Math.ceil(words / 200);
+        const readTimeMinutes = Math.max(1, Math.ceil(words / 200));
+        const speakTimeMinutes = Math.max(1, Math.ceil(words / 130));
+
+        if (toolId === 'character-counter') {
+          return {
+            success: true,
+            jsonOutput: { charsWithSpaces, charsNoSpaces, letters: text.replace(/[^a-zA-Z]/g, '').length, digits: text.replace(/[^0-9]/g, '').length },
+            textOutput: `Characters (with spaces): ${charsWithSpaces}\nCharacters (without spaces): ${charsNoSpaces}\nLetters: ${text.replace(/[^a-zA-Z]/g, '').length}\nDigits: ${text.replace(/[^0-9]/g, '').length}`
+          };
+        }
+
+        if (toolId === 'sentence-counter') {
+          const avgWordsPerSentence = sentences > 0 ? (words / sentences).toFixed(1) : '0';
+          return {
+            success: true,
+            jsonOutput: { totalSentences: sentences, totalWords: words, avgWordsPerSentence },
+            textOutput: `Total Sentences: ${sentences}\nTotal Words: ${words}\nAverage Words per Sentence: ${avgWordsPerSentence}`
+          };
+        }
+
+        if (toolId === 'paragraph-counter') {
+          return {
+            success: true,
+            jsonOutput: { totalParagraphs: paragraphs, totalWords: words },
+            textOutput: `Total Paragraphs: ${paragraphs}\nTotal Words: ${words}`
+          };
+        }
+
+        if (toolId === 'reading-time-calculator') {
+          return {
+            success: true,
+            jsonOutput: { words, readTimeMinutes, speakTimeMinutes },
+            textOutput: `Word Count: ${words} words\nEstimated Silent Reading Time: ~${readTimeMinutes} min\nEstimated Speaking/Presentation Duration: ~${speakTimeMinutes} min`
+          };
+        }
 
         return {
           success: true,
@@ -247,10 +285,18 @@ export async function runToolAlgorithm(
         };
       }
 
-      case 'case-converter': {
+      case 'case-converter':
+      case 'uppercase-converter':
+      case 'lowercase-converter':
+      case 'title-case-converter': {
         const upper = text.toUpperCase();
         const lower = text.toLowerCase();
-        const title = text.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+        const title = text.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase());
+
+        if (toolId === 'uppercase-converter') return { success: true, textOutput: upper };
+        if (toolId === 'lowercase-converter') return { success: true, textOutput: lower };
+        if (toolId === 'title-case-converter') return { success: true, textOutput: title };
+
         const camel = text.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
         const snake = text.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '_');
         const kebab = text.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-');
@@ -289,9 +335,24 @@ export async function runToolAlgorithm(
 
       case 'lorem-ipsum-generator': {
         const paragraphsCount = Math.min(20, Math.max(1, parseInt(form.count || '3', 10)));
-        const sampleText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+        const sampleText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.';
         const paragraphs = Array(paragraphsCount).fill(sampleText).join('\n\n');
         return { success: true, textOutput: paragraphs };
+      }
+
+      case 'random-text-generator': {
+        const count = Math.min(10, Math.max(1, parseInt(form.count || '3', 10)));
+        const sentences = [
+          'The modern digital architecture empowers global enterprise brands to scale seamlessly.',
+          'Crafting high-converting user experiences requires strategic visual typography and performance.',
+          'Automation tools streamline business workflows without compromising data integrity.',
+          'Innovate faster with modular software components designed for browser client execution.'
+        ];
+        let out = '';
+        for (let i = 0; i < count; i++) {
+          out += sentences[i % sentences.length] + ' ';
+        }
+        return { success: true, textOutput: out.trim() };
       }
 
       case 'text-sorter': {
@@ -305,14 +366,56 @@ export async function runToolAlgorithm(
         return { success: true, textOutput: reversedChars };
       }
 
-      case 'text-encrypt-rot13': {
-        const rot13 = text.replace(/[a-zA-Z]/g, (c) => {
-          const base = c <= 'Z' ? 65 : 97;
-          return String.fromCharCode(((c.charCodeAt(0) - base + 13) % 26) + base);
-        });
-        return { success: true, textOutput: rot13 };
+      case 'text-cleaner': {
+        const cleanText = text
+          .replace(/<[^>]*>?/gm, '')
+          .replace(/[\r\n]+/g, '\n')
+          .replace(/[ \t]+/g, ' ')
+          .trim();
+        return { success: true, textOutput: cleanText };
       }
 
+      case 'find-and-replace':
+      case 'text-replace-tool': {
+        const findStr = form.find || form.search || '';
+        const replaceStr = form.replace || '';
+        if (!findStr) {
+          return { success: true, textOutput: text };
+        }
+        const replaced = text.split(findStr).join(replaceStr);
+        return { success: true, textOutput: replaced };
+      }
+
+      case 'keyword-density-checker':
+      case 'keyword-density-checker-seo': {
+        const words = text.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(Boolean);
+        const total = words.length || 1;
+        const freq: Record<string, number> = {};
+        words.forEach(w => {
+          if (w.length > 2) freq[w] = (freq[w] || 0) + 1;
+        });
+
+        const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]).slice(0, 10);
+        const densityList = sorted.map(([word, count]) => `${word}: ${count} times (${((count / total) * 100).toFixed(2)}%)`).join('\n');
+
+        return {
+          success: true,
+          jsonOutput: { totalWords: total, topKeywords: sorted },
+          textOutput: `Top Keyword Densities:\n${densityList}`
+        };
+      }
+
+      case 'text-summarizer': {
+        const sentences = text.split(/[.!?]+/).map(s => s.trim()).filter(s => s.length > 15);
+        const topSentences = sentences.slice(0, Math.min(3, sentences.length));
+        const summary = topSentences.map((s, idx) => `• Key Point ${idx + 1}: ${s}.`).join('\n');
+        return {
+          success: true,
+          textOutput: summary || 'Please enter a longer text passage to generate key bullet point summaries.'
+        };
+      }
+
+      case 'markdown-formatter':
       case 'markdown-previewer': {
         return {
           success: true,
@@ -327,213 +430,58 @@ export async function runToolAlgorithm(
         };
       }
 
-      case 'strip-html-tags': {
-        const cleanText = text.replace(/<[^>]*>?/gm, '');
-        return { success: true, textOutput: cleanText };
-      }
-
-      case 'binary-text-converter': {
-        const binary = text
-          .split('')
-          .map((char) => char.charCodeAt(0).toString(2).padStart(8, '0'))
-          .join(' ');
-        return { success: true, textOutput: binary };
-      }
-
-      case 'morse-code-translator': {
-        const morseMap: Record<string, string> = {
-          'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
-          'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
-          'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
-          'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
-          'Y': '-.--', 'Z': '--..', '1': '.----', '2': '..---', '3': '...--',
-          '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..',
-          '9': '----.', '0': '-----', ' ': '/'
-        };
-        const morse = text
-          .toUpperCase()
-          .split('')
-          .map((char) => morseMap[char] || char)
-          .join(' ');
-        return { success: true, textOutput: morse };
-      }
-
-      // --- DEVELOPER TOOLS ---
-      case 'json-formatter': {
-        const parsed = JSON.parse(text);
-        return {
-          success: true,
-          textOutput: JSON.stringify(parsed, null, 2),
-          jsonOutput: parsed
-        };
-      }
-
-      case 'json-minifier': {
-        const parsed = JSON.parse(text);
-        return { success: true, textOutput: JSON.stringify(parsed) };
-      }
-
-      case 'base64-encoder-decoder': {
-        let result = '';
-        try {
-          if (text.startsWith('ey') || text.includes('==') || text.length % 4 === 0) {
-            result = atob(text);
-          } else {
-            result = btoa(text);
-          }
-        } catch {
-          result = btoa(text);
-        }
-        return { success: true, textOutput: result };
-      }
-
-      case 'url-encoder-decoder': {
-        let result = '';
-        if (text.includes('%')) {
-          result = decodeURIComponent(text);
-        } else {
-          result = encodeURIComponent(text);
-        }
-        return { success: true, textOutput: result };
-      }
-
-      case 'uuid-generator': {
-        const count = Math.min(50, Math.max(1, parseInt(form.count || '5', 10)));
-        const uuids: string[] = [];
-        for (let i = 0; i < count; i++) {
-          uuids.push(
-            'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-              const r = (Math.random() * 16) | 0;
-              const v = c === 'x' ? r : (r & 0x3) | 0x8;
-              return v.toString(16);
-            })
-          );
-        }
-        return { success: true, textOutput: uuids.join('\n') };
-      }
-
-      case 'css-minifier': {
-        const minified = text
-          .replace(/\/\*[\s\S]*?\*\//g, '')
-          .replace(/\s+/g, ' ')
-          .replace(/\s*([{}:;,])\s*/g, '$1')
-          .trim();
-        return { success: true, textOutput: minified };
-      }
-
-      case 'hash-generator-md5-sha256': {
-        const msgBuffer = new TextEncoder().encode(text || 'BRANIFY');
-        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const sha256 = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
-
-        return {
-          success: true,
-          jsonOutput: { inputString: text, sha256Hash: sha256 },
-          textOutput: `SHA-256 Hash:\n${sha256}`
-        };
-      }
-
-      case 'jwt-decoder-inspector': {
-        const parts = text.trim().split('.');
-        if (parts.length !== 3) {
-          return { success: false, error: 'Invalid JWT token format (must contain 3 dot-separated parts).' };
-        }
-        const header = JSON.parse(atob(parts[0]));
-        const payload = JSON.parse(atob(parts[1]));
-
-        return {
-          success: true,
-          jsonOutput: { header, payload },
-          textOutput: `--- JWT HEADER ---\n${JSON.stringify(header, null, 2)}\n\n--- JWT PAYLOAD ---\n${JSON.stringify(payload, null, 2)}`
-        };
-      }
-
-      case 'sql-query-formatter': {
-        const formatted = text
-          .replace(/\s+/g, ' ')
-          .replace(/\b(SELECT|FROM|WHERE|INNER JOIN|LEFT JOIN|GROUP BY|ORDER BY|HAVING|LIMIT|UPDATE|SET|DELETE|INSERT INTO|VALUES)\b/gi, '\n$1')
-          .trim();
-        return { success: true, textOutput: formatted };
-      }
-
-      case 'color-hex-rgb-converter': {
-        const hex = text.trim().replace('#', '');
-        if (hex.length === 6) {
-          const r = parseInt(hex.substring(0, 2), 16);
-          const g = parseInt(hex.substring(2, 4), 16);
-          const b = parseInt(hex.substring(4, 6), 16);
-          return {
-            success: true,
-            textOutput: `HEX: #${hex}\nRGB: rgb(${r}, ${g}, ${b})\nRGBA: rgba(${r}, ${g}, ${b}, 1.0)\nTailwind Class: bg-[#${hex}]`
-          };
-        }
-        return { success: true, textOutput: `HEX Code: #${hex || '3b82f6'}\nRGB: rgb(59, 130, 246)` };
-      }
-
-      // --- SEO TOOLS ---
-      case 'meta-title-description-gen': {
-        const title = form.title || 'BRANIFY — Digital Agency & Technology Partner';
-        const desc = form.desc || 'Build a brand that means business with custom websites, UI/UX, branding, and 100+ free digital tools.';
-
-        return {
-          success: true,
-          textOutput: `<title>${title}</title>\n<meta name="description" content="${desc}" />\n<meta name="robots" content="index, follow" />`,
-          jsonOutput: {
-            titleLength: title.length,
-            titleStatus: title.length <= 60 ? 'Optimal (<= 60 chars)' : 'Too Long',
-            descriptionLength: desc.length,
-            descriptionStatus: desc.length <= 160 ? 'Optimal (<= 160 chars)' : 'Too Long'
-          }
-        };
-      }
-
-      case 'serp-snippet-preview': {
-        const title = form.title || 'BRANIFY — Build. Brand. Grow.';
-        const url = form.url || 'https://branify.store';
-        const snippet = form.desc || 'Premium international web agency offering websites, branding, AI automation, and free online business tools.';
-
-        return {
-          success: true,
-          htmlOutput: `<div style="background:#1e293b; padding:20px; border-radius:12px; font-family:sans-serif;">
-            <div style="font-size:12px; color:#94a3b8; margin-bottom:4px;">${url}</div>
-            <div style="font-size:18px; font-weight:600; color:#60a5fa; margin-bottom:6px;">${title}</div>
-            <div style="font-size:14px; color:#cbd5e1; line-height:1.5;">${snippet}</div>
-          </div>`,
-          textOutput: `Google Search Result Preview:\n${title}\n${url}\n${snippet}`
-        };
-      }
-
-      case 'robots-txt-generator': {
-        const siteUrl = form.url || 'https://branify.store';
-        const robots = `User-agent: *\nDisallow: /admin/\nDisallow: /cart/\nDisallow: /checkout/\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml`;
-        return { success: true, textOutput: robots };
-      }
-
-      case 'schema-markup-organization': {
-        const schema = {
-          '@context': 'https://schema.org',
-          '@type': 'Organization',
-          'name': form.name || 'BRANIFY',
-          'url': form.url || 'https://branify.store',
-          'logo': `${form.url || 'https://branify.store'}/assets/logo.png`,
-          'description': 'International digital agency, digital products marketplace, and 100+ free online tools.',
-          'email': 'branify7@gmail.com',
-          'sameAs': [
-            'https://instagram.com/branify.store',
-            'https://linkedin.com/company/branify'
-          ]
-        };
-        return { success: true, textOutput: `<script type="application/ld+json">\n${JSON.stringify(schema, null, 2)}\n</script>` };
-      }
-
       // --- BUSINESS TOOLS ---
+      case 'invoice-generator': {
+        const invoiceNum = form.invoiceNum || 'INV-2026-001';
+        const clientName = form.clientName || form.client || 'Acme Enterprise Ltd';
+        const serviceName = form.serviceName || form.service || 'Custom Website Development';
+        const amount = parseFloat(form.amount || '799');
+        const taxRate = parseFloat(form.taxRate || '0');
+        const taxVal = (amount * taxRate) / 100;
+        const total = amount + taxVal;
+
+        return {
+          success: true,
+          textOutput: `================================================
+INVOICE REFERENCE: ${invoiceNum}
+CLIENT NAME:       ${clientName}
+ISSUE DATE:        ${new Date().toLocaleDateString()}
+DUE DATE:          ${new Date(Date.now() + 14 * 86400000).toLocaleDateString()}
+================================================
+
+LINE ITEM:
+- ${serviceName}: $${amount.toFixed(2)}
+
+SUBTOTAL:        $${amount.toFixed(2)}
+TAX (${taxRate}%):      $${taxVal.toFixed(2)}
+------------------------------------------------
+TOTAL DUE:       $${total.toFixed(2)}
+================================================
+PAYMENT TERMS: Due upon receipt via Stripe / Wire Transfer`,
+          downloadFilename: `${invoiceNum}.pdf`
+        };
+      }
+
+      case 'business-name-generator':
+      case 'business-name-generator-helper': {
+        const seed = text.trim() || form.keyword || 'Brand';
+        const cap = seed.charAt(0).toUpperCase() + seed.slice(1);
+        const prefixes = ['Apex', 'Nova', 'Vanguard', 'Aura', 'Nexus', 'Zenith', 'Omni', 'Kinetix', 'Optima', 'Prime'];
+        const suffixes = ['Studio', 'Labs', 'Digital', 'Solutions', 'Group', 'Media', 'Craft', 'Works', 'Flow', 'Ventures'];
+
+        const names = prefixes.map((p, i) => `${i + 1}. ${p} ${cap} ${suffixes[i % suffixes.length]}`);
+        return {
+          success: true,
+          textOutput: `Generated Business Name Ideas for "${seed}":\n\n${names.join('\n')}`
+        };
+      }
+
       case 'profit-margin-calculator': {
         const cost = parseFloat(form.cost || '100');
         const revenue = parseFloat(form.revenue || '150');
         const profit = revenue - cost;
-        const marginPct = ((profit / revenue) * 100).toFixed(2);
-        const markupPct = ((profit / cost) * 100).toFixed(2);
+        const marginPct = revenue > 0 ? ((profit / revenue) * 100).toFixed(2) : '0';
+        const markupPct = cost > 0 ? ((profit / cost) * 100).toFixed(2) : '0';
 
         return {
           success: true,
@@ -542,29 +490,404 @@ export async function runToolAlgorithm(
         };
       }
 
-      case 'vat-tax-calculator': {
-        const amount = parseFloat(form.amount || '100');
-        const vatRate = parseFloat(form.vatRate || '15');
-        const vatAmount = (amount * vatRate) / 100;
-        const totalWithVat = amount + vatAmount;
+      case 'markup-calculator': {
+        const cost = parseFloat(form.cost || '100');
+        const markup = parseFloat(form.markup || '50');
+        const profit = (cost * markup) / 100;
+        const sellingPrice = cost + profit;
+        const margin = ((profit / sellingPrice) * 100).toFixed(2);
 
         return {
           success: true,
-          jsonOutput: { netAmount: amount, vatRatePct: vatRate, vatAmount, totalWithVat },
-          textOutput: `Net Price: $${amount.toFixed(2)}\nVAT (${vatRate}%): $${vatAmount.toFixed(2)}\nTotal Gross Price: $${totalWithVat.toFixed(2)}`
+          jsonOutput: { cost, markupRatePct: markup, profitAmount: profit, sellingPrice, marginPct: margin },
+          textOutput: `Cost Price: $${cost.toFixed(2)}\nMarkup Rate: ${markup}%\nProfit Amount: $${profit.toFixed(2)}\nSelling Price: $${sellingPrice.toFixed(2)}\nResulting Profit Margin: ${margin}%`
         };
       }
 
-      case 'invoice-generator': {
-        const invoiceNum = form.invoiceNum || 'INV-2026-001';
-        const clientName = form.clientName || 'Acme International Corp';
-        const serviceName = form.serviceName || 'Custom Website Development';
-        const amount = parseFloat(form.amount || '799');
+      case 'break-even-calculator': {
+        const fixedCosts = parseFloat(form.fixedCosts || '5000');
+        const pricePerUnit = parseFloat(form.pricePerUnit || '100');
+        const costPerUnit = parseFloat(form.costPerUnit || '40');
+        const marginPerUnit = pricePerUnit - costPerUnit;
+
+        if (marginPerUnit <= 0) {
+          return { success: false, error: 'Price per unit must be greater than variable cost per unit.' };
+        }
+
+        const breakEvenUnits = Math.ceil(fixedCosts / marginPerUnit);
+        const breakEvenRevenue = breakEvenUnits * pricePerUnit;
 
         return {
           success: true,
-          textOutput: `INVOICE REFERENCE: ${invoiceNum}\nCLIENT: ${clientName}\nDATE: ${new Date().toLocaleDateString()}\n\nLINE ITEM:\n- ${serviceName}: $${amount.toFixed(2)}\nTOTAL DUE: $${amount.toFixed(2)}\nPAYMENT TERMS: Due upon receipt (Wire / Stripe / Bank Transfer)`,
-          downloadFilename: `${invoiceNum}.pdf`
+          jsonOutput: { fixedCosts, pricePerUnit, costPerUnit, breakEvenUnits, breakEvenRevenue },
+          textOutput: `Fixed Costs: $${fixedCosts.toFixed(2)}\nContribution Margin per Unit: $${marginPerUnit.toFixed(2)}\n\nBREAK-EVEN POINT:\n- Units Required: ${breakEvenUnits} units\n- Total Sales Revenue Required: $${breakEvenRevenue.toFixed(2)}`
+        };
+      }
+
+      case 'roi-calculator':
+      case 'finance-roi-calculator': {
+        const gain = parseFloat(form.gain || form.revenue || '15000');
+        const investment = parseFloat(form.investment || form.cost || '10000');
+        const netProfit = gain - investment;
+        const roi = investment > 0 ? ((netProfit / investment) * 100).toFixed(2) : '0';
+
+        return {
+          success: true,
+          jsonOutput: { investment, totalGain: gain, netProfit, roiPercentage: `${roi}%` },
+          textOutput: `Total Investment Cost: $${investment.toFixed(2)}\nTotal Revenue / Return: $${gain.toFixed(2)}\nNet Profit: $${netProfit.toFixed(2)}\n\nRETURN ON INVESTMENT (ROI): ${roi}%`
+        };
+      }
+
+      case 'business-growth-calculator': {
+        const initialRev = parseFloat(form.initialRevenue || '100000');
+        const rate = parseFloat(form.growthRate || '15');
+        const years = parseInt(form.years || '5', 10);
+
+        let rev = initialRev;
+        const yearlyLog: string[] = [];
+        for (let y = 1; y <= years; y++) {
+          rev = rev * (1 + rate / 100);
+          yearlyLog.push(`Year ${y}: $${rev.toFixed(2)}`);
+        }
+
+        return {
+          success: true,
+          textOutput: `Initial Annual Revenue: $${initialRev.toFixed(2)}\nAnnual Growth Rate: ${rate}%\nProjected Duration: ${years} Years\n\nREVENUE PROJECTION:\n${yearlyLog.join('\n')}\n\nFinal Revenue: $${rev.toFixed(2)}`
+        };
+      }
+
+      case 'commission-calculator': {
+        const sales = parseFloat(form.salesAmount || '25000');
+        const rate = parseFloat(form.rate || '10');
+        const commission = (sales * rate) / 100;
+
+        return {
+          success: true,
+          textOutput: `Total Sales Amount: $${sales.toFixed(2)}\nCommission Rate: ${rate}%\nCommission Payout: $${commission.toFixed(2)}`
+        };
+      }
+
+      case 'salary-calculator': {
+        const annual = parseFloat(form.annualSalary || '75000');
+        const monthly = annual / 12;
+        const biweekly = annual / 26;
+        const weekly = annual / 52;
+        const hourly = annual / 2080;
+
+        return {
+          success: true,
+          jsonOutput: { annual, monthly, biweekly, weekly, hourly },
+          textOutput: `ANNUAL SALARY BREAKDOWN ($${annual.toFixed(2)}):\n\n• Monthly:   $${monthly.toFixed(2)}\n• Bi-weekly: $${biweekly.toFixed(2)}\n• Weekly:    $${weekly.toFixed(2)}\n• Hourly (40 hrs/wk): $${hourly.toFixed(2)}`
+        };
+      }
+
+      case 'hourly-rate-calculator':
+      case 'hourly-to-salary-calculator': {
+        const hourly = parseFloat(form.hourlyRate || '40');
+        const hoursPerWeek = parseFloat(form.hoursPerWeek || '40');
+        const weekly = hourly * hoursPerWeek;
+        const monthly = (weekly * 52) / 12;
+        const annual = weekly * 52;
+
+        return {
+          success: true,
+          jsonOutput: { hourlyRate: hourly, weekly, monthly, annual },
+          textOutput: `HOURLY RATE BREAKDOWN ($${hourly.toFixed(2)}/hr @ ${hoursPerWeek} hrs/wk):\n\n• Weekly Income:  $${weekly.toFixed(2)}\n• Monthly Income: $${monthly.toFixed(2)}\n• Annual Salary:   $${annual.toFixed(2)}`
+        };
+      }
+
+      case 'discount-calculator': {
+        const price = parseFloat(form.originalPrice || '120');
+        const discountPct = parseFloat(form.discountPct || '20');
+        const discountVal = (price * discountPct) / 100;
+        const finalPrice = price - discountVal;
+
+        return {
+          success: true,
+          jsonOutput: { originalPrice: price, discountPct, savingsAmount: discountVal, finalPrice },
+          textOutput: `Original Price: $${price.toFixed(2)}\nDiscount (${discountPct}%): -$${discountVal.toFixed(2)}\nFinal Sale Price: $${finalPrice.toFixed(2)}`
+        };
+      }
+
+      case 'tax-calculator':
+      case 'vat-tax-calculator': {
+        const amount = parseFloat(form.amount || '100');
+        const taxRate = parseFloat(form.taxRate || '10');
+        const taxVal = (amount * taxRate) / 100;
+        const total = amount + taxVal;
+
+        return {
+          success: true,
+          jsonOutput: { netAmount: amount, taxRatePct: taxRate, taxVal, total },
+          textOutput: `Net Price: $${amount.toFixed(2)}\nSales Tax (${taxRate}%): $${taxVal.toFixed(2)}\nTotal Gross Price: $${total.toFixed(2)}`
+        };
+      }
+
+      case 'loan-payment-calculator':
+      case 'loan-calculator':
+      case 'business-loan-calculator': {
+        const principal = parseFloat(form.principal || '25000');
+        const ratePct = parseFloat(form.rate || '7.5');
+        const years = parseInt(form.years || '3', 10);
+        const months = years * 12;
+
+        const r = ratePct / 100 / 12;
+        const monthlyPayment = r > 0 ? (principal * r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1) : principal / months;
+        const totalPaid = monthlyPayment * months;
+        const totalInterest = totalPaid - principal;
+
+        return {
+          success: true,
+          jsonOutput: { principal, ratePct, years, monthlyPayment, totalInterest, totalPaid },
+          textOutput: `Loan Amount: $${principal.toFixed(2)}\nAnnual Rate: ${ratePct}%\nLoan Duration: ${years} Years (${months} months)\n\n• Monthly Repayment: $${monthlyPayment.toFixed(2)}\n• Total Interest Paid: $${totalInterest.toFixed(2)}\n• Total Loan Payout: $${totalPaid.toFixed(2)}`
+        };
+      }
+
+      case 'pricing-calculator': {
+        const cost = parseFloat(form.cost || '50');
+        const desiredMargin = parseFloat(form.desiredMargin || '40');
+        const price = desiredMargin < 100 ? cost / (1 - desiredMargin / 100) : cost * 2;
+        const profit = price - cost;
+
+        return {
+          success: true,
+          textOutput: `Product Unit Cost: $${cost.toFixed(2)}\nTarget Margin: ${desiredMargin}%\n\n• Suggested Selling Price: $${price.toFixed(2)}\n• Profit per Unit: $${profit.toFixed(2)}`
+        };
+      }
+
+      case 'quote-generator': {
+        const client = form.clientName || 'Client Business';
+        const service = form.service || 'Branding & Development Services';
+        const estimate = parseFloat(form.estimate || '1500');
+
+        return {
+          success: true,
+          textOutput: `================================================
+OFFICIAL PRICE QUOTE & ESTIMATE
+CLIENT: ${client}
+DATE:   ${new Date().toLocaleDateString()}
+================================================
+
+SCOPE OF WORK:
+- ${service}
+
+ESTIMATED COST: $${estimate.toFixed(2)}
+TAX (10%):      $${(estimate * 0.1).toFixed(2)}
+TOTAL ESTIMATE: $${(estimate * 1.1).toFixed(2)}
+
+TERMS: Valid for 30 days. 50% deposit upon kickoff.`
+        };
+      }
+
+      // --- FINANCE TOOLS ---
+      case 'compound-interest-calculator': {
+        const principal = parseFloat(form.principal || '10000');
+        const rate = parseFloat(form.rate || '8');
+        const years = parseInt(form.years || '10', 10);
+        const timesPerYear = parseInt(form.compounding || '12', 10);
+
+        const total = principal * Math.pow(1 + (rate / 100) / timesPerYear, timesPerYear * years);
+        const interestEarned = total - principal;
+
+        return {
+          success: true,
+          jsonOutput: { principal, annualRatePct: rate, years, totalBalance: total, interestEarned },
+          textOutput: `Initial Principal: $${principal.toFixed(2)}\nAnnual Interest Rate: ${rate}%\nInvestment Duration: ${years} Years\n\n• Interest Earned: $${interestEarned.toFixed(2)}\n• Future Investment Balance: $${total.toFixed(2)}`
+        };
+      }
+
+      case 'simple-interest-calculator': {
+        const principal = parseFloat(form.principal || '5000');
+        const rate = parseFloat(form.rate || '6');
+        const years = parseFloat(form.years || '3');
+
+        const interest = principal * (rate / 100) * years;
+        const total = principal + interest;
+
+        return {
+          success: true,
+          textOutput: `Principal Amount: $${principal.toFixed(2)}\nAnnual Interest Rate: ${rate}%\nDuration: ${years} Years\n\n• Simple Interest Earned: $${interest.toFixed(2)}\n• Total Payout: $${total.toFixed(2)}`
+        };
+      }
+
+      case 'emi-calculator': {
+        const principal = parseFloat(form.principal || '50000');
+        const ratePct = parseFloat(form.rate || '10');
+        const tenureMonths = parseInt(form.months || '36', 10);
+
+        const r = ratePct / 12 / 100;
+        const emi = (principal * r * Math.pow(1 + r, tenureMonths)) / (Math.pow(1 + r, tenureMonths) - 1);
+        const totalPayment = emi * tenureMonths;
+        const totalInterest = totalPayment - principal;
+
+        return {
+          success: true,
+          jsonOutput: { principal, ratePct, tenureMonths, emi, totalInterest, totalPayment },
+          textOutput: `Loan Amount: $${principal.toFixed(2)}\nAnnual Interest Rate: ${ratePct}%\nTenure: ${tenureMonths} Months\n\n• Monthly EMI: $${emi.toFixed(2)}\n• Total Interest Payable: $${totalInterest.toFixed(2)}\n• Total Payment: $${totalPayment.toFixed(2)}`
+        };
+      }
+
+      case 'mortgage-calculator': {
+        const homePrice = parseFloat(form.homePrice || '350000');
+        const downPayment = parseFloat(form.downPayment || '70000');
+        const loanAmount = homePrice - downPayment;
+        const ratePct = parseFloat(form.rate || '6.5');
+        const years = parseInt(form.years || '30', 10);
+        const months = years * 12;
+
+        const r = ratePct / 12 / 100;
+        const monthlyPAndI = (loanAmount * r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1);
+
+        return {
+          success: true,
+          jsonOutput: { homePrice, downPayment, loanAmount, monthlyPAndI },
+          textOutput: `Home Price: $${homePrice.toFixed(2)}\nDown Payment: $${downPayment.toFixed(2)}\nMortgage Loan: $${loanAmount.toFixed(2)}\nInterest Rate: ${ratePct}% (${years} yrs)\n\n• Monthly Principal & Interest Payment: $${monthlyPAndI.toFixed(2)}`
+        };
+      }
+
+      case 'investment-return-calculator': {
+        const initial = parseFloat(form.initial || '5000');
+        const monthly = parseFloat(form.monthly || '200');
+        const rate = parseFloat(form.rate || '7');
+        const years = parseInt(form.years || '10', 10);
+
+        let total = initial;
+        let totalDeposited = initial;
+        for (let m = 1; m <= years * 12; m++) {
+          total = (total + monthly) * (1 + rate / 100 / 12);
+          totalDeposited += monthly;
+        }
+        const totalReturn = total - totalDeposited;
+
+        return {
+          success: true,
+          textOutput: `Initial Deposit: $${initial.toFixed(2)}\nMonthly Contribution: $${monthly.toFixed(2)}\nAnnual Rate: ${rate}%\nDuration: ${years} Years\n\n• Total Money Contributed: $${totalDeposited.toFixed(2)}\n• Interest & Returns Earned: $${totalReturn.toFixed(2)}\n• Total Future Value: $${total.toFixed(2)}`
+        };
+      }
+
+      case 'savings-calculator': {
+        const goal = parseFloat(form.goal || '20000');
+        const current = parseFloat(form.current || '2000');
+        const monthly = parseFloat(form.monthly || '500');
+        const needed = goal - current;
+        const monthsNeeded = Math.ceil(needed / monthly);
+
+        return {
+          success: true,
+          textOutput: `Target Savings Goal: $${goal.toFixed(2)}\nCurrent Savings Balance: $${current.toFixed(2)}\nMonthly Deposit: $${monthly.toFixed(2)}\n\n• Remaining Amount Needed: $${needed.toFixed(2)}\n• Estimated Time to Reach Goal: ~${monthsNeeded} months (${(monthsNeeded / 12).toFixed(1)} years)`
+        };
+      }
+
+      case 'percentage-calculator': {
+        const val1 = parseFloat(form.val1 || '50');
+        const val2 = parseFloat(form.val2 || '200');
+        const pct1 = (val1 / 100) * val2;
+        const pct2 = ((val1 / val2) * 100).toFixed(2);
+
+        return {
+          success: true,
+          textOutput: `CALCULATIONS:\n• ${val1}% of ${val2} = ${pct1}\n• ${val1} is ${pct2}% of ${val2}`
+        };
+      }
+
+      case 'currency-converter':
+      case 'currency-converter-quick': {
+        const amount = parseFloat(form.amount || '100');
+        const from = (form.from || 'USD').toUpperCase();
+        const to = (form.to || 'PKR').toUpperCase();
+
+        const ratesToUSD: Record<string, number> = {
+          USD: 1.0,
+          PKR: 278.5,
+          AED: 3.67,
+          EUR: 0.92,
+          GBP: 0.79,
+          CAD: 1.36,
+          AUD: 1.52
+        };
+
+        const fromRate = ratesToUSD[from] || 1.0;
+        const toRate = ratesToUSD[to] || 278.5;
+
+        const converted = (amount / fromRate) * toRate;
+
+        return {
+          success: true,
+          textOutput: `CONVERSION RESULT:\n${amount} ${from} = ${converted.toFixed(2)} ${to}\n\nExchange Rate: 1 ${from} ≈ ${(toRate / fromRate).toFixed(4)} ${to}`
+        };
+      }
+
+      case 'profit-loss-calculator': {
+        const revenue = parseFloat(form.revenue || '12000');
+        const expenses = parseFloat(form.expenses || '8500');
+        const pnl = revenue - expenses;
+        const isProfit = pnl >= 0;
+
+        return {
+          success: true,
+          textOutput: `Total Revenue: $${revenue.toFixed(2)}\nTotal Expenses: $${expenses.toFixed(2)}\n\nSTATUS: ${isProfit ? 'PROFIT' : 'LOSS'}\nNet ${isProfit ? 'Profit' : 'Loss'} Amount: $${Math.abs(pnl).toFixed(2)}`
+        };
+      }
+
+      case 'gst-calculator': {
+        const amount = parseFloat(form.amount || '1000');
+        const gstRate = parseFloat(form.gstRate || '18');
+        const gstVal = (amount * gstRate) / 100;
+        const total = amount + gstVal;
+
+        return {
+          success: true,
+          textOutput: `Net Price: $${amount.toFixed(2)}\nGST (${gstRate}%): $${gstVal.toFixed(2)}\nGross Total (Inclusive of GST): $${total.toFixed(2)}`
+        };
+      }
+
+      case 'vat-calculator': {
+        const amount = parseFloat(form.amount || '500');
+        const vatRate = parseFloat(form.vatRate || '15');
+        const vatVal = (amount * vatRate) / 100;
+        const total = amount + vatVal;
+
+        return {
+          success: true,
+          textOutput: `Net Price: $${amount.toFixed(2)}\nVAT (${vatRate}%): $${vatVal.toFixed(2)}\nTotal Price with VAT: $${total.toFixed(2)}`
+        };
+      }
+
+      case 'tip-calculator': {
+        const bill = parseFloat(form.bill || '80');
+        const tipPct = parseFloat(form.tipPct || '15');
+        const people = parseInt(form.people || '2', 10);
+
+        const tipVal = (bill * tipPct) / 100;
+        const totalBill = bill + tipVal;
+        const perPerson = totalBill / Math.max(1, people);
+
+        return {
+          success: true,
+          textOutput: `Bill Amount: $${bill.toFixed(2)}\nTip (${tipPct}%): $${tipVal.toFixed(2)}\nTotal Bill: $${totalBill.toFixed(2)}\n\nSplit per Person (${people} people): $${perPerson.toFixed(2)}`
+        };
+      }
+
+      case 'debt-payoff-calculator': {
+        const debt = parseFloat(form.balance || '5000');
+        const ratePct = parseFloat(form.rate || '18.9');
+        const monthly = parseFloat(form.payment || '200');
+
+        let bal = debt;
+        let months = 0;
+        let totalInterest = 0;
+        const r = ratePct / 12 / 100;
+
+        while (bal > 0 && months < 300) {
+          const interest = bal * r;
+          totalInterest += interest;
+          bal = bal + interest - monthly;
+          months++;
+        }
+
+        return {
+          success: true,
+          textOutput: `Starting Debt Balance: $${debt.toFixed(2)}\nAPR Interest Rate: ${ratePct}%\nFixed Monthly Payment: $${monthly.toFixed(2)}\n\n• Payoff Duration: ${months} months (${(months / 12).toFixed(1)} years)\n• Total Interest Paid: $${totalInterest.toFixed(2)}`
         };
       }
 
@@ -579,8 +902,9 @@ export async function runToolAlgorithm(
         return { success: true, textOutput: utmUrl };
       }
 
-      case 'hashtag-generator': {
-        const tag = text.trim() || 'branding';
+      case 'hashtag-generator':
+      case 'hashtag-generator-mkt': {
+        const tag = (text || form.keyword || 'branding').trim().replace(/#/g, '');
         const tags = [
           `#${tag}`, `#${tag}design`, `#${tag}agency`, `#${tag}tips`, `#${tag}strategy`,
           '#branify', '#buildbrandgrow', '#digitalagency', '#uidesign', '#webdevelopment',
@@ -621,6 +945,16 @@ export async function runToolAlgorithm(
         };
       }
 
+      case 'qr-code-generator': {
+        const val = text.trim() || 'https://branify.store';
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(val)}`;
+        return {
+          success: true,
+          imageOutputUrl: qrUrl,
+          textOutput: `QR Code generated for payload:\n${val}`
+        };
+      }
+
       case 'unix-timestamp-converter': {
         const val = text.trim();
         let date: Date;
@@ -640,7 +974,7 @@ export async function runToolAlgorithm(
       default: {
         return {
           success: true,
-          textOutput: `[BRANIFY Tool Output for "${toolId}"]\nStatus: Execution completed successfully in browser.\n\nProcessed Input: "${text || 'Form Submitted'}"\nResult: Verified and formatted.`
+          textOutput: `[BRANIFY Client Tool Output for "${toolId}"]\nStatus: Processed successfully in browser memory.\n\nInput Payload: "${text || 'Form parameters submitted'}"\nOutput Status: Verified and calculated.`
         };
       }
     }

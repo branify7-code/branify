@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { ToolRunner } from '../components/ToolRunner';
 import { TiltCard } from '../components/TiltCard';
@@ -15,7 +15,11 @@ import {
   Calculator,
   Lock,
   Download,
-  Share2
+  Share2,
+  DollarSign,
+  TrendingUp,
+  ShieldCheck,
+  Megaphone
 } from 'lucide-react';
 
 interface ToolsPageProps {
@@ -28,6 +32,29 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({ navigate, selectedToolSlug
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Handle URL category search parameter e.g., /tools?category=Business+Tools
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const catParam = params.get('category');
+    if (catParam) {
+      const decoded = decodeURIComponent(catParam).trim().toLowerCase();
+      const match = categories.find((c) => {
+        const cLower = c.toLowerCase();
+        return (
+          cLower === decoded ||
+          cLower.replace('&', 'and') === decoded.replace('&', 'and') ||
+          (decoded.includes('text') && c === 'Text & Content Tools') ||
+          (decoded.includes('business') && c === 'Business Tools') ||
+          (decoded.includes('finance') && c === 'Finance Tools') ||
+          (decoded.includes('security') && c === 'Security & Utility Tools')
+        );
+      });
+      if (match) {
+        setSelectedCategory(match);
+      }
+    }
+  }, []);
+
   // Determine active tool if slug is present in URL
   const activeTool = selectedToolSlug ? tools.find((t) => t.slug === selectedToolSlug) : null;
 
@@ -35,29 +62,48 @@ export const ToolsPage: React.FC<ToolsPageProps> = ({ navigate, selectedToolSlug
     'All',
     'PDF Tools',
     'Image Tools',
-    'Text & Content',
+    'Text & Content Tools',
     'Developer Tools',
     'SEO Tools',
-    'Business & Finance'
+    'Business Tools',
+    'Finance Tools',
+    'Marketing Tools',
+    'Security & Utility Tools'
   ];
 
   const filteredTools = tools.filter((t) => {
-    const matchesCategory = selectedCategory === 'All' || t.category === selectedCategory;
+    let matchesCategory = selectedCategory === 'All';
+    if (!matchesCategory) {
+      const cat = t.category;
+      if (selectedCategory === 'Text & Content Tools') {
+        matchesCategory = cat === 'Text & Content Tools' || (cat as string) === 'Text Tools';
+      } else if (selectedCategory === 'Security & Utility Tools') {
+        matchesCategory = cat === 'Security & Utility Tools' || (cat as string) === 'Security / Utility Tools';
+      } else {
+        matchesCategory = cat === selectedCategory;
+      }
+    }
+
     const matchesSearch =
       !searchQuery ||
       t.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      t.description.toLowerCase().includes(searchQuery.toLowerCase());
+      t.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      t.keywords?.some((k) => k.toLowerCase().includes(searchQuery.toLowerCase()));
+
     return matchesCategory && matchesSearch;
   });
 
   const getCategoryIcon = (cat: string) => {
     switch (cat) {
       case 'PDF Tools': return <FileText className="w-4 h-4 text-[#F27D26]" />;
-      case 'Image Tools': return <Image className="w-4 h-4 text-white" />;
-      case 'Text & Content': return <FileText className="w-4 h-4 text-[#F27D26]" />;
-      case 'Developer Tools': return <Code className="w-4 h-4 text-white" />;
+      case 'Image Tools': return <Image className="w-4 h-4 text-emerald-400" />;
+      case 'Text & Content Tools': return <FileText className="w-4 h-4 text-[#F27D26]" />;
+      case 'Developer Tools': return <Code className="w-4 h-4 text-cyan-400" />;
       case 'SEO Tools': return <Globe className="w-4 h-4 text-[#F27D26]" />;
-      case 'Business & Finance': return <Calculator className="w-4 h-4 text-white" />;
+      case 'Business Tools': return <Calculator className="w-4 h-4 text-amber-400" />;
+      case 'Finance Tools': return <DollarSign className="w-4 h-4 text-emerald-400" />;
+      case 'Marketing Tools': return <Megaphone className="w-4 h-4 text-purple-400" />;
+      case 'Security & Utility Tools': return <ShieldCheck className="w-4 h-4 text-rose-400" />;
       default: return <Wrench className="w-4 h-4 text-[#F27D26]" />;
     }
   };
