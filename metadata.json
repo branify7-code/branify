@@ -1,0 +1,6 @@
+{
+  "name": "BRANIFY",
+  "description": "International digital agency, digital products marketplace, and 100+ free browser tools.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

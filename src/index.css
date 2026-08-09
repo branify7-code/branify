@@ -1,0 +1,243 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #050505;
+    color: #ffffff;
+  }
+
+  h1, h2, h3, .font-heading {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .font-mono-code {
+    font-family: 'Space Grotesk', monospace;
+  }
+}
+
+/* Custom Scrollbar for Bold Theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #F27D26;
+}
+
+/* 3D Hero Animations & Utility Classes */
+@keyframes float-blob-1 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(45px, -35px) scale(1.12);
+  }
+  66% {
+    transform: translate(-30px, 25px) scale(0.95);
+  }
+}
+
+@keyframes float-blob-2 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate(-55px, 40px) scale(1.18);
+  }
+}
+
+@keyframes float-blob-3 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate(35px, -45px) scale(1.1);
+  }
+}
+
+.animate-blob-1 {
+  animation: float-blob-1 18s ease-in-out infinite;
+  will-change: transform;
+}
+.animate-blob-2 {
+  animation: float-blob-2 24s ease-in-out infinite;
+  will-change: transform;
+}
+.animate-blob-3 {
+  animation: float-blob-3 20s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes float-hero-panel {
+  0%, 100% {
+    transform: translateY(0px) rotateX(2.5deg) rotateY(-2.5deg);
+  }
+  50% {
+    transform: translateY(-14px) rotateX(-2.5deg) rotateY(3deg);
+  }
+}
+
+.animate-hero-float {
+  animation: float-hero-panel 4.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.perspective-1200 {
+  perspective: 1200px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+@keyframes word-tilt-up {
+  0% {
+    opacity: 0;
+    transform: translateY(45px) rotateX(-70deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px) rotateX(0deg);
+  }
+}
+
+.animate-word-tilt {
+  display: inline-block;
+  opacity: 0;
+  animation: word-tilt-up 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+  transform-origin: bottom center;
+}
+
+/* --- Gradient & 3D Interactive Buttons --- */
+.btn-gradient-primary {
+  background: linear-gradient(135deg, #ffb347 0%, #ff7a1a 50%, #e85d00 100%);
+  background-size: 200% 200%;
+  background-position: 0% 0%;
+  color: #000000;
+  font-weight: 800;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              background-position 0.25s ease,
+              border-color 0.25s ease;
+  will-change: transform, box-shadow, background-position;
+}
+
+.btn-gradient-primary:hover {
+  background-position: 100% 0%;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 14px 34px rgba(255, 122, 26, 0.45);
+}
+
+.btn-gradient-primary:active {
+  transform: translateY(-1px) scale(0.99);
+  box-shadow: 0 6px 20px rgba(255, 122, 26, 0.35);
+}
+
+.btn-outline-secondary {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-weight: 700;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease,
+              color 0.25s ease,
+              background-color 0.25s ease;
+  will-change: transform, box-shadow;
+}
+
+.btn-outline-secondary:hover {
+  border-color: #ff7a1a;
+  color: #ffb347;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 24px rgba(255, 122, 26, 0.25);
+  background-color: rgba(255, 122, 26, 0.05);
+}
+
+.btn-outline-secondary:active {
+  transform: translateY(-1px) scale(0.99);
+  box-shadow: 0 4px 12px rgba(255, 122, 26, 0.15);
+}
+
+/* --- 3D Tilt Card Base Utilities --- */
+.tilt-card-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(400px circle at var(--x, 50%) var(--y, 50%), rgba(255, 122, 26, 0.22), transparent 75%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.tilt-card-wrapper:hover .tilt-card-glow {
+  opacity: 1;
+}
+
+.tilt-card-border-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(350px circle at var(--x, 50%) var(--y, 50%), rgba(255, 122, 26, 0.8), rgba(255, 255, 255, 0.1) 40%, transparent 80%);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.tilt-card-wrapper:hover .tilt-card-border-glow {
+  opacity: 1;
+}
+
+/* Icon Pop-out transitions */
+.icon-pop-target {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, box-shadow 0.3s ease;
+  transform: translateZ(30px);
+}
+
+.tilt-card-wrapper:hover .icon-pop-target {
+  transform: translateZ(60px) scale(1.08);
+  background: linear-gradient(145deg, #ff7a1a 0%, #ffb347 100%) !important;
+  color: #000000 !important;
+  box-shadow: 0 10px 25px rgba(255, 122, 26, 0.5);
+}
+
+.tilt-card-wrapper:hover .icon-pop-target * {
+  color: #000000 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-blob-1,
+  .animate-blob-2,
+  .animate-blob-3,
+  .animate-hero-float {
+    animation: none !important;
+  }
+  .animate-word-tilt {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .btn-gradient-primary:hover,
+  .btn-outline-secondary:hover {
+    transform: none !important;
+  }
+  .tilt-card-wrapper:hover .icon-pop-target {
+    transform: none !important;
+  }
+}
